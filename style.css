@@ -276,4 +276,35 @@ font-weight:bold
 background:#1b1e2b
 }
 
+.drawer-menu.slanted{
+margin-top:25px;
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.sbtn{
+width:100%;
+height:52px;
+background:linear-gradient(135deg,#6d28d9,#3b82f6);
+color:white;
+font-weight:700;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:14px 0 14px 0;
+clip-path:polygon(0 0,90% 0,100% 50%,90% 100%,0 100%,6% 50%);
+box-shadow:0 10px 25px rgba(0,0,0,.4);
+transition:.25s;
+}
+
+.sbtn:active{
+transform:scale(.95);
+}
+
+.sbtn.logout{
+background:linear-gradient(135deg,#dc2626,#ef4444);
+margin-top:15px;
+}
+
 
