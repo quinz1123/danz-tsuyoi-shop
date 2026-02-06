@@ -1,48 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="style.css">
-</head>
-
 <body>
 
-<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<script type="module">
+import {auth} from "./firebase.js"
+import {onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"
 
-<div class="drawer" id="drawer">
-<div class="avatar">FOTO</div>
-<h3>DANZ</h3>
-<button onclick="go('create.html')">PANEL</button>
-<button onclick="go('servers.html')">SERVER</button>
-<button>WHATSAPP</button>
-<button>TIKTOK</button>
-</div>
-
-<div class="header">
-<span onclick="openDrawer()">☰</span>
-</div>
-
-<div class="menu-grid">
-<button onclick="go('create.html')">PANEL</button>
-<button onclick="go('servers.html')">SERVER</button>
-<button>WHATSAPP</button>
-<button>TIKTOK</button>
-</div>
-
-<div class="card">
-<img src="https://i.imgur.com/8Km9tLL.jpeg">
-</div>
-
-<div class="desc">
-HAI WEBSITE INI ADALAH WEBSITE JUAL PANEL YA GAYS DAN SEMUANYA OTOMATIS
-</div>
-
-<script>
-function openDrawer(){drawer.classList.add("open");overlay.classList.add("show")}
-function closeDrawer(){drawer.classList.remove("open");overlay.classList.remove("show")}
-function go(x){location.href=x}
+onAuthStateChanged(auth,u=>{
+if(!u) location.href="login.html"
+})
 </script>
 
+<div class="header">Dashboard</div>
+
+<div class="menu-grid">
+<button onclick="location.href='create.html'">CREATE PANEL</button>
+<button onclick="location.href='servers.html'">MY SERVER</button>
+</div>
+
 </body>
-</html> 
