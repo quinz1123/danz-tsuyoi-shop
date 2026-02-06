@@ -1,9 +1,17 @@
-<link rel="stylesheet" href="/style.css">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create Panel</title>
+<link rel="stylesheet" href="style.css">
+</head>
 
-<div class="header">Create Panel</div>
+<body>
 
-<div class="center">
-<div class="glass">
+<div class="topbar" onclick="history.back()">← Create Panel</div>
+
+<div class="create">
 
 <input id="token" placeholder="Token">
 <input id="username" placeholder="Username">
@@ -20,6 +28,8 @@
 <pre id="out"></pre>
 
 </div>
-</div>
 
-<script type="module" src="/app.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
