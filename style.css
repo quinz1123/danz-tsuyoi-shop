@@ -303,3 +303,13 @@ color:#f87171;
 background:rgba(239,68,68,.2);
 color:white;
 }
+
+.avatar{
+margin-bottom:10px;
+}
+
+.drawer h3{
+font-weight:600;
+letter-spacing:.5px;
+margin-bottom:20px;
+}
