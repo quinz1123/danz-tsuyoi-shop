@@ -1,47 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Danz Panel</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Panel Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
-
 <body>
+    <div class="bg-glow"></div>
 
-<div class="drawer" id="drawer">
-<div class="avatar">FOTO</div>
-<h3>DANZ</h3>
-<a href="create.html">PANEL</a>
-<a href="#">WHATSAPP</a>
-<a href="#">INFO</a>
-<a href="#">TIKTOK</a>
-</div>
+    <nav class="sidebar" id="sidebar">
+        <div class="nav-header">
+            <div class="logo-box">R</div>
+            <span>RIZKY DEV</span>
+            <i class='bx bx-x close-menu' id="menuClose"></i>
+        </div>
+        <ul class="nav-links">
+            <li class="active" id="nav-home"><a href="#" onclick="showPage('home')"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
+            <li id="nav-create"><a href="#" onclick="showPage('create')"><i class='bx bxs-plus-circle'></i> Create Panel</a></li>
+            <li><a href="#"><i class='bx bxs-zap'></i> Status</a></li>
+            <li><a href="#"><i class='bx bxs-cog'></i> Settings</a></li>
+        </ul>
+    </nav>
 
-<header>
-<span class="hamburger" onclick="toggle()">☰</span>
-</header>
+    <main class="main-content">
+        <header class="navbar">
+            <i class='bx bx-menu toggle-menu' id="menuBtn"></i>
+            <div class="user-profile">
+                <span>Welcome, User</span>
+                <div class="avatar"></div>
+            </div>
+        </header>
 
-<div class="menu">
-<button onclick="location.href='create.html'">PANEL</button>
-<button>WHATSAPP</button>
-<button>TIKTOK</button>
-<button>INFO</button>
-</div>
+        <section id="page-home" class="page active">
+            <div class="welcome-banner">
+                <h1>Ready to Build? 🚀</h1>
+                <p>Kelola panel Pterodactyl kamu dengan mudah dan cepat.</p>
+                <button class="btn-primary" onclick="showPage('create')">Mulai Buat Panel</button>
+            </div>
+        </section>
 
-<div class="banner">
-<img src="https://i.imgur.com/8Km9tLL.jpeg">
-</div>
+        <section id="page-create" class="page">
+            <div class="create-container">
+                <div class="form-card">
+                    <h2><i class='bx bxs-magic-wand'></i> Create New Panel</h2>
+                    <div class="input-group">
+                        <label>Admin Token</label>
+                        <input type="password" id="token" placeholder="Masukkan token...">
+                    </div>
+                    <div class="input-group">
+                        <label>Username Panel</label>
+                        <input type="text" id="username" placeholder="rizkydep">
+                    </div>
+                    
+                    <div class="ram-selector">
+                        <label>Pilih Kapasitas RAM</label>
+                        <div class="ram-grid">
+                            <input type="radio" name="ram" value="1024" id="ram1" checked>
+                            <label for="ram1">1GB</label>
 
-<div class="desc">
-HAI WEBSITE INI ADALAH WEBSITE JUAL PANEL YA GAYS DAN OTOMATIS
-</div>
+                            <input type="radio" name="ram" value="2048" id="ram2">
+                            <label for="ram2">2GB</label>
 
-<script>
-function toggle(){
-drawer.classList.toggle("open")
-}
-</script>
+                            <input type="radio" name="ram" value="4096" id="ram3">
+                            <label for="ram3">4GB</label>
 
+                            <input type="radio" name="ram" value="0" id="ramUnli">
+                            <label for="ramUnli" class="unli-label">UNLIMITED</label>
+                        </div>
+                    </div>
+
+                    <button id="btnCreate" class="btn-submit">Generate Panel Now</button>
+                </div>
+
+                <div class="output-card">
+                    <h3>System Output</h3>
+                    <pre id="out">Silahkan isi form untuk memulai...</pre>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
 </body>
 </html>
