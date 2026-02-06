@@ -1,55 +1,55 @@
-
+// Navigasi Sidebar (Garis 3)
 const sidebar = document.querySelector(".sidebar");
-const closeBtn = document.querySelector("#btn-menu");
+const btn = document.querySelector("#btn");
 
-closeBtn.addEventListener("click", () => {
+btn.onclick = function() {
     sidebar.classList.toggle("active");
-});
+}
 
+// Perpindahan Halaman
 function showPage(pageId) {
-    const pages = document.querySelectorAll('.content-page');
-    pages.forEach(page => {
-        page.classList.remove('active');
-    });
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + pageId).classList.add('active');
     
+    // Auto-close sidebar di HP saat pindah menu
     if(window.innerWidth < 768) {
         sidebar.classList.remove("active");
     }
 }
 
+// Logika Create Panel
 const $ = s => document.querySelector(s);
 
-$("#btn").addEventListener("click", async () => {
-    const username = $("#username").value.trim();
+$("#btnCreate").onclick = async () => {
     const token = $("#token").value.trim();
+    const username = $("#username").value.trim();
     const ram = document.querySelector('input[name="ram"]:checked').value;
-    const btn = $("#btn");
+    const btnSubmit = $("#btnCreate");
 
-    if (!username || !token) return alert("Isi semua data!");
+    if(!token || !username) return alert("Harap isi semua field!");
 
-    btn.disabled = true;
-    btn.textContent = "Processing...";
-    $("#out").textContent = "Sedang membuat panel...";
+    btnSubmit.disabled = true;
+    btnSubmit.textContent = "Deploying...";
+    $("#out").textContent = "> Initializing...\n> Connecting to panel API...\n> Setting RAM to: " + (ram == 0 ? "Unlimited" : ram + "MB");
 
     try {
-        const r = await fetch("/api/create", {
+        const response = await fetch("/api/create", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, token, ram })
         });
+        const data = await response.json();
 
-        const j = await r.json();
-
-        if (j.ok) {
-            $("#out").textContent = `BERHASIL ✅\n\nUser: ${j.result.username}\nPass: ${j.result.password}\nRAM: ${ram == 0 ? 'Unlimited' : ram + 'MB'}`;
+        if(data.ok) {
+            $("#out").textContent = `SUCCESS ✅\n\nPanel: ${data.result.panel}\nUser: ${data.result.username}\nPass: ${data.result.password}`;
         } else {
-            $("#out").textContent = `GAGAL ❌\n\n${j.message}`;
+            $("#out").textContent = `FAILED ❌\n\nError: ${data.message}`;
         }
-    } catch (err) {
-        $("#out").textContent = "Error koneksi ke server.";
+    } catch (e) {
+        $("#out").textContent = "Error: Terjadi kegagalan koneksi.";
     } finally {
-        btn.disabled = false;
-        btn.textContent = "Buat Panel";
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = "Deploy Now";
     }
-});
+}
