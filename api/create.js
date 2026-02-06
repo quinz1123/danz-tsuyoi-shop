@@ -5,7 +5,7 @@ const {username,token,ram}=req.body
 if(token!=="RIZKY123") return res.json({error:"Token salah"})
 
 const PANEL="https://danz-tsuyoi.flixiazone.my.id"
-const PTLA="ISI_API_KEY"
+const PTLA="ptla_HDoMsQBrkjxBYtS0ei6h4pV7NwBHPxZfqgmQBMeczbv"
 
 const user=await fetch(PANEL+"/api/application/users",{
 method:"POST",
@@ -50,4 +50,4 @@ password:username+"001",
 ram,
 server:server.attributes.id
 })
-}
+} 
