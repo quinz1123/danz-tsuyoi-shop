@@ -119,21 +119,7 @@ text-align:center;
 margin:15px 0 25px
 }
 
-.drawer button{
-width:100%;
-height:46px;
-margin:10px 0;
-border:none;
-border-radius:14px;
-background:linear-gradient(45deg,#6d28d9,#3b82f6);
-color:white;
-font-weight:600
-}
 
-.logout{
-background:linear-gradient(45deg,#dc2626,#ef4444)!important;
-margin-top:25px;
-}
 
 @keyframes fadeUp{
 from{opacity:0;transform:translateY(20px)}
