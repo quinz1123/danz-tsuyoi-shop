@@ -1,4 +1,5 @@
+await new Promise(r=>setTimeout(r,300))
 
-if(!sessionStorage.getItem("login")){
-location.replace("/login.html")
+if(!localStorage.getItem("logged")){
+location.replace("login.html")
 }
