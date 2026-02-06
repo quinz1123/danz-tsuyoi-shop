@@ -16,4 +16,4 @@ const j=await r.json()
 out.textContent=JSON.stringify(j,null,2)
 
 btn.innerText="CREATE PANEL"
-} 
+}
