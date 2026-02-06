@@ -1,19 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="/style.css">
+</head>
+
 <body>
 
 <script type="module">
-import {auth} from "./firebase.js"
+import {auth} from "/firebase.js"
 import {onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"
 
 onAuthStateChanged(auth,u=>{
-if(!u) location.href="login.html"
+if(!u) location.href="/login.html"
 })
 </script>
 
 <div class="header">Dashboard</div>
 
-<div class="menu-grid">
-<button onclick="location.href='create.html'">CREATE PANEL</button>
-<button onclick="location.href='servers.html'">MY SERVER</button>
+<div class="card">
+<h3>Welcome 👋</h3>
+<p style="opacity:.6">Mini Hosting Panel</p>
+</div>
+
+<div class="menu">
+<button onclick="location.href='/create.html'">CREATE PANEL</button>
+<button onclick="location.href='/servers.html'">MY SERVER</button>
+</div>
+
+<div class="card">
+<h4>Status</h4>
+<p style="opacity:.6">
+System Online ✔<br>
+Firebase Connected ✔
+</p>
 </div>
 
 </body>
+</html>
