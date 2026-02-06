@@ -1,80 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="auth-bg">
 
-<div class="auth">
+<div class="auth-card fade">
 
-<div class="auth-card">
-
-<h2 id="title">LOGIN</h2>
+<h2>LOGIN</h2>
 
 <input id="email" placeholder="Email">
 <input id="password" type="password" placeholder="Password">
 
-<button onclick="submit()">LOGIN</button>
+<button onclick="login()">LOGIN</button>
 
-<div class="switch">
-<span onclick="toggle()">Daftar akun</span>
-</div>
+<p onclick="location.href='register.html'">Daftar akun</p>
 
 </div>
 
-</div>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"
-import {
-getAuth,
-signInWithEmailAndPassword,
-createUserWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"
-
-const firebaseConfig={
-apiKey:"AIzaSyA2Eb7HpVNE7yPKsYxNqdCNs78qCkov62U",
-authDomain:"danz-tsuyoi.firebaseapp.com",
-projectId:"danz-tsuyoi",
-appId:"1:504620812619:web:02d66470fa3bed9fbfc0ce"
-}
-
-initializeApp(firebaseConfig)
-const auth=getAuth()
-
-let mode="login"
-
-window.toggle=()=>{
-mode=mode=="login"?"register":"login"
-title.innerText=mode.toUpperCase()
-document.querySelector("button").innerText=mode=="login"?"LOGIN":"DAFTAR"
-}
-
-window.submit=()=>{
-
-if(mode=="login"){
-signInWithEmailAndPassword(auth,email.value,password.value)
-.then(()=>{
-sessionStorage.setItem("login","1")
-location.href="/"
-})
-.catch(e=>alert(e.message))
-}
-
-else{
-createUserWithEmailAndPassword(auth,email.value,password.value)
-.then(()=>{
-alert("Berhasil daftar")
-toggle()
-})
-.catch(e=>alert(e.message))
-}
-
-}
-</script>
+<script type="module" src="auth.js"></script>
 
 </body>
 </html>
