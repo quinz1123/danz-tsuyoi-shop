@@ -75,3 +75,16 @@ background:#141720;
 border-radius:18px;
 padding:15px
 }
+
+@media(max-width:600px){
+.glass{
+width:95%;
+padding:35px;
+}
+}
+
+.auth-link{
+text-align:center;
+margin-top:15px;
+opacity:.7
+}
