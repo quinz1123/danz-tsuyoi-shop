@@ -8,6 +8,8 @@
 
 <body>
 
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+
 <div class="drawer" id="drawer">
 
 <div class="avatar">FOTO</div>
@@ -21,7 +23,7 @@
 </div>
 
 <div class="header">
-<span onclick="toggle()">☰</span>
+<span onclick="openDrawer()">☰</span>
 </div>
 
 <div class="menu-grid">
@@ -40,9 +42,16 @@ HAI WEBSITE INI ADALAH WEBSITE JUAL PANEL YA GAYS DAN SEMUANYA OTOMATIS CUY BISA
 </div>
 
 <script>
-function toggle(){
-drawer.classList.toggle("open")
+function openDrawer(){
+drawer.classList.add("open")
+overlay.classList.add("show")
 }
+
+function closeDrawer(){
+drawer.classList.remove("open")
+overlay.classList.remove("show")
+}
+
 function goPanel(){
 location.href="create.html"
 }
