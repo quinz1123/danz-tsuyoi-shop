@@ -1,16 +1,29 @@
+
+const btn = document.getElementById("btn")
+const out = document.getElementById("out")
+const token = document.getElementById("token")
+const username = document.getElementById("username")
+const ram = document.getElementById("ram")
+
 let isProcessing = false
 let lastUsername = null
 
 btn.onclick = async () => {
 
 const currentUsername = username.value.trim()
+const currentToken = token.value.trim()
+
+if(!currentToken){
+alert("Token kosong")
+return
+}
 
 if(!currentUsername){
 alert("Username kosong")
 return
 }
 
-// BLOCK SAME USERNAME AFTER SUCCESS
+// BLOCK SAME USERNAME
 if(lastUsername === currentUsername){
 alert("Silakan ganti username baru terlebih dahulu.")
 return
@@ -31,7 +44,7 @@ method:"POST",
 headers:{'Content-Type':'application/json'},
 body:JSON.stringify({
 username:currentUsername,
-token:token.value,
+token:currentToken,
 ram:ram.value
 })
 })
@@ -44,11 +57,11 @@ reset()
 return
 }
 
-// SAVE LAST SUCCESS USERNAME
+// SAVE LAST USERNAME
 lastUsername = currentUsername
 
 out.innerHTML = `
-<div class="result-card" style="background:#121318;padding:15px;border-radius:16px">
+<div class="result-card">
 
 <h3>✅ PANEL BERHASIL DIBUAT</h3>
 
@@ -58,16 +71,24 @@ out.innerHTML = `
 <p><b>Server ID:</b> ${j.server_id}</p>
 <p><b>RAM:</b> ${j.ram}</p>
 
-<button onclick="window.open('${j.panel}','_blank')" class="action">BUKA PANEL</button>
-<button onclick="navigator.clipboard.writeText('${j.password}')" class="action dark">COPY PASSWORD</button>
-<button onclick="navigator.clipboard.writeText('${j.username}')" class="action dark">COPY USERNAME</button>
+<button onclick="window.open('${j.panel}','_blank')" class="action">
+BUKA PANEL
+</button>
+
+<button onclick="navigator.clipboard.writeText('${j.password}')" class="action dark">
+COPY PASSWORD
+</button>
+
+<button onclick="navigator.clipboard.writeText('${j.username}')" class="action dark">
+COPY USERNAME
+</button>
 
 </div>
 `
 
 }catch(e){
 
-out.innerHTML="ERROR CONNECTION"
+out.innerHTML="<div style='color:red'>ERROR CONNECTION</div>"
 
 }
 
