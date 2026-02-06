@@ -97,9 +97,10 @@ return
 createUserWithEmailAndPassword(auth,email,password)
 .then(async(res)=>{
 
+await res.user.reload()
 await sendEmailVerification(res.user)
 
-alert("OTP sudah dikirim ke email. Silakan verifikasi dulu!")
+alert("OTP sudah dikirim ke email. Silakan cek inbox / spam!")
 
 location.replace("login.html")
 
