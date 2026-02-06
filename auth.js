@@ -4,7 +4,8 @@ getAuth,
 signInWithEmailAndPassword,
 createUserWithEmailAndPassword,
 onAuthStateChanged,
-signOut
+signOut,
+sendEmailVerification
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"
 
 const firebaseConfig = {
@@ -17,21 +18,34 @@ appId: "1:504620812619:web:02d66470fa3bed9fbfc0ce"
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 
-// AUTO LOGIN CHECK
+// ================= AUTO LOGIN CHECK =================
+
 onAuthStateChanged(auth,user=>{
+
 if(user){
+
+if(!user.emailVerified){
+alert("Verifikasi email dulu bro")
+signOut(auth)
+return
+}
+
 localStorage.setItem("logged","yes")
+
 if(location.pathname.includes("login") || location.pathname.includes("register")){
 setTimeout(()=>{
 location.replace("/")
 },300)
 }
+
 }else{
 localStorage.removeItem("logged")
 }
+
 })
 
-// LOGIN
+// ================= LOGIN =================
+
 window.login = function(){
 
 const email = document.getElementById("email").value.trim()
@@ -43,16 +57,28 @@ return
 }
 
 signInWithEmailAndPassword(auth,email,password)
-.then(()=>{
+.then(res=>{
+
+if(!res.user.emailVerified){
+alert("Email belum diverifikasi. Cek inbox!")
+
+signOut(auth)
+return
+}
+
 localStorage.setItem("logged","yes")
+
 setTimeout(()=>{
 location.replace("/")
 },300)
+
 })
 .catch(e=>alert(e.message))
+
 }
 
-// REGISTER
+// ================= REGISTER + OTP =================
+
 window.register = function(){
 
 const email = document.getElementById("email").value.trim()
@@ -69,17 +95,26 @@ return
 }
 
 createUserWithEmailAndPassword(auth,email,password)
-.then(()=>{
-alert("Daftar berhasil, silakan login")
+.then(async(res)=>{
+
+await sendEmailVerification(res.user)
+
+alert("OTP sudah dikirim ke email. Silakan verifikasi dulu!")
+
 location.replace("login.html")
+
 })
 .catch(e=>alert(e.message))
+
 }
 
-// LOGOUT
+// ================= LOGOUT =================
+
 window.logout = function(){
+
 signOut(auth).then(()=>{
 localStorage.removeItem("logged")
 location.replace("login.html")
 })
+
 }
