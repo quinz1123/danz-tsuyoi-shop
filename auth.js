@@ -12,18 +12,15 @@ projectId: "danz-tsuyoi",
 appId: "1:504620812619:web:02d66470fa3bed9fbfc0ce"
 }
 
-const app = initializeApp(firebaseConfig)
-const auth = getAuth(app)
+initializeApp(firebaseConfig)
+const auth = getAuth()
 
 // LOGIN
 window.login = () => {
 signInWithEmailAndPassword(auth,email.value,password.value)
 .then(()=>{
-localStorage.setItem("logged","yes")
-
-setTimeout(()=>{
+sessionStorage.setItem("login","1")
 location.replace("/")
-},300)
 })
 .catch(e=>alert(e.message))
 }
