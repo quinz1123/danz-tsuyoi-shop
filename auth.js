@@ -4,4 +4,4 @@ import {signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.
 window.login=async()=>{
 await signInWithEmailAndPassword(auth,email.value,password.value)
 location.href="/index.html"
-}
+} 
