@@ -1,4 +1,4 @@
-import {db} from "./firebase.js"
+import {db} from "/firebase.js"
 import {addDoc,collection} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 btn.onclick=async()=>{
@@ -18,7 +18,6 @@ const j=await r.json()
 await addDoc(collection(db,"servers"),{
 username:username.value,
 ram:ram.value,
-server:j.server,
 date:new Date().toLocaleString()
 })
 
