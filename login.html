@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Login</title>
-<link rel="stylesheet" href="style.css">
+<script type="module" src="/auth.js"></script>
 </head>
+<body style="background:#0f0f0f;color:white;text-align:center;padding-top:100px">
 
-<body>
+<h2>LOGIN / DAFTAR</h2>
 
-<div class="create">
-
-<h2 style="text-align:center;margin-bottom:20px">LOGIN</h2>
-
-<input id="email" placeholder="Email">
-<input id="password" type="password" placeholder="Password">
+<input id="email" placeholder="Email"><br><br>
+<input id="password" type="password" placeholder="Password"><br><br>
 
 <button onclick="login()">LOGIN</button>
+<br><br>
+<button onclick="register()">DAFTAR</button>
 
-</div>
-
-<script type="module" src="auth.js"></script>
 </body>
-</html> 
+</html>
