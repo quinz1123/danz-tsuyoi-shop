@@ -1,51 +1,19 @@
+btn.onclick=async()=>{
 
-const sidebar = document.querySelector(".sidebar");
-const closeBtn = document.querySelector("#btn");
+btn.innerText="PROCESS..."
 
-closeBtn.onclick = () => {
-    sidebar.classList.toggle("active");
-};
+const r=await fetch("/api/create",{
+method:"POST",
+headers:{'Content-Type':'application/json'},
+body:JSON.stringify({
+username:username.value,
+token:token.value,
+ram:ram.value
+})
+})
 
-function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-    document.getElementById('page-' + pageId).classList.add('active');
-    
-    if(window.innerWidth < 768) {
-        sidebar.classList.remove("active");
-    }
+const j=await r.json()
+out.textContent=JSON.stringify(j,null,2)
+
+btn.innerText="CREATE PANEL"
 }
-
-const $ = s => document.querySelector(s);
-
-$("#btnCreate").onclick = async () => {
-    const token = $("#token").value.trim();
-    const username = $("#username").value.trim();
-    const ram = document.querySelector('input[name="ram"]:checked').value;
-    const btn = $("#btnCreate");
-
-    if(!token || !username) return alert("Harap isi semua kolom!");
-
-    btn.disabled = true;
-    btn.textContent = "Deploying...";
-    $("#out").textContent = "> Initializing...\n> Selected Memory: " + (ram == 0 ? "UNLIMITED" : ram + "MB");
-
-    try {
-        const res = await fetch("/api/create", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, token, ram })
-        });
-        const data = await res.json();
-
-        if(data.ok) {
-            $("#out").textContent = `SUCCESS ✅\n\nPanel: ${data.result.panel}\nUser: ${data.result.username}\nPass: ${data.result.password}`;
-        } else {
-            $("#out").textContent = `FAILED ❌\nError: ${data.message}`;
-        }
-    } catch (e) {
-        $("#out").textContent = "Error: Koneksi server gagal.";
-    } finally {
-        btn.disabled = false;
-        btn.textContent = "Generate Panel Account";
-    }
-};
