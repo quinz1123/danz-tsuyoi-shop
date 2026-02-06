@@ -1,49 +1,55 @@
-const $ = s => document.querySelector(s);
 
-// Logika Buka Tutup Menu Garis 3
-$("#openMenu").onclick = () => $("#sidebar").classList.add("active");
-$("#closeMenu").onclick = () => $("#sidebar").classList.remove("active");
+const sidebar = document.querySelector(".sidebar");
+const closeBtn = document.querySelector("#btn-menu");
 
-// Perpindahan Halaman (Dashboard & Create)
+closeBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+});
+
 function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+    const pages = document.querySelectorAll('.content-page');
+    pages.forEach(page => {
+        page.classList.remove('active');
+    });
+    document.getElementById('page-' + pageId).classList.add('active');
     
-    $(`#page-${pageId}`).classList.add('active');
-    $(`[onclick="showPage('${pageId}')"]`).classList.add('active');
-    $("#sidebar").classList.remove("active");
+    if(window.innerWidth < 768) {
+        sidebar.classList.remove("active");
+    }
 }
 
-// Handler Tombol Create
-$("#btnCreate").onclick = async () => {
-    const token = $("#token").value;
-    const username = $("#username").value;
-    const ram = $('input[name="ram"]:checked').value;
-    const btn = $("#btnCreate");
+const $ = s => document.querySelector(s);
 
-    if (!username || !token) return alert("Please fill all fields!");
+$("#btn").addEventListener("click", async () => {
+    const username = $("#username").value.trim();
+    const token = $("#token").value.trim();
+    const ram = document.querySelector('input[name="ram"]:checked').value;
+    const btn = $("#btn");
+
+    if (!username || !token) return alert("Isi semua data!");
 
     btn.disabled = true;
-    btn.innerHTML = "<i class='bx bx-loader-alt bx-spin'></i> Processing...";
-    $("#out").textContent = "> Initializing...\n> Selected RAM: " + (ram == 0 ? "Unlimited" : ram + "MB");
+    btn.textContent = "Processing...";
+    $("#out").textContent = "Sedang membuat panel...";
 
     try {
-        const response = await fetch("/api/create", {
+        const r = await fetch("/api/create", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, token, ram })
         });
-        const data = await response.json();
 
-        if (data.ok) {
-            $("#out").textContent = `SUCCESS ✅\n\nUser: ${data.result.username}\nPass: ${data.result.password}\nHost: ${data.result.panel}`;
+        const j = await r.json();
+
+        if (j.ok) {
+            $("#out").textContent = `BERHASIL ✅\n\nUser: ${j.result.username}\nPass: ${j.result.password}\nRAM: ${ram == 0 ? 'Unlimited' : ram + 'MB'}`;
         } else {
-            $("#out").textContent = `FAILED ❌\nError: ${data.message}`;
+            $("#out").textContent = `GAGAL ❌\n\n${j.message}`;
         }
-    } catch (e) {
-        $("#out").textContent = "Error connecting to server.";
+    } catch (err) {
+        $("#out").textContent = "Error koneksi ke server.";
     } finally {
         btn.disabled = false;
-        btn.textContent = "Generate Panel Account";
+        btn.textContent = "Buat Panel";
     }
-};
+});
