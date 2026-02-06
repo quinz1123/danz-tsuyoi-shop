@@ -60,6 +60,16 @@ background:#333;
 color:white
 ">COPY PASSWORD</button>
 
+<button onclick="navigator.clipboard.writeText('${j.username}')" style="
+margin-top:8px;
+width:100%;
+height:40px;
+border:none;
+border-radius:14px;
+background:#333;
+color:white
+">COPY USERNAME</button>
+
 </div>
 `
 
