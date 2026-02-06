@@ -1,6 +1,20 @@
 let isProcessing = false
+let lastUsername = null
 
 btn.onclick = async () => {
+
+const currentUsername = username.value.trim()
+
+if(!currentUsername){
+alert("Username kosong")
+return
+}
+
+// BLOCK SAME USERNAME AFTER SUCCESS
+if(lastUsername === currentUsername){
+alert("Silakan ganti username baru terlebih dahulu.")
+return
+}
 
 if(isProcessing) return
 isProcessing = true
@@ -16,7 +30,7 @@ const r = await fetch("/api/create",{
 method:"POST",
 headers:{'Content-Type':'application/json'},
 body:JSON.stringify({
-username:username.value,
+username:currentUsername,
 token:token.value,
 ram:ram.value
 })
@@ -29,6 +43,9 @@ out.innerHTML = `<div style="color:red">${j.error}</div>`
 reset()
 return
 }
+
+// SAVE LAST SUCCESS USERNAME
+lastUsername = currentUsername
 
 out.innerHTML = `
 <div class="result-card" style="background:#121318;padding:15px;border-radius:16px">
