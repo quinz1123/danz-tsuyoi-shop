@@ -23,7 +23,9 @@
 <button onclick="wa()">WHATSAPP</button>
 <button onclick="tt()">TIKTOK</button>
 <button onclick="info()">INFO</button>
+
 <button class="logout" onclick="logout()">LOGOUT</button>
+
 </div>
 
 <div class="header">
@@ -70,6 +72,30 @@ window.open("https://tiktok.com","_blank")
 
 function info(){
 alert("Danz Premium Panel Shop")
+}
+</script>
+
+<!-- FIREBASE LOGOUT -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"
+
+const firebaseConfig = {
+apiKey: "AIzaSyA2Eb7HpVNE7yPKsYxNqdCNs78qCkov62U",
+authDomain: "danz-tsuyoi.firebaseapp.com",
+projectId: "danz-tsuyoi",
+appId: "1:504620812619:web:02d66470fa3bed9fbfc0ce"
+}
+
+const app = initializeApp(firebaseConfig)
+const auth = getAuth(app)
+
+window.logout = function(){
+if(confirm("Logout sekarang?")){
+signOut(auth).then(()=>{
+location.replace("/login.html")
+})
+}
 }
 </script>
 
