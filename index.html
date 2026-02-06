@@ -19,12 +19,16 @@
 
 <h3>DANZ</h3>
 
-<button onclick="goPanel()">PANEL</button>
-<button onclick="wa()">WHATSAPP</button>
-<button onclick="tt()">TIKTOK</button>
-<button onclick="info()">INFO</button>
+<div class="drawer-menu">
 
-<button class="logout" onclick="logout()">LOGOUT</button>
+<div class="ditem" onclick="goPanel()">📦 Panel</div>
+<div class="ditem" onclick="wa()">💬 WhatsApp</div>
+<div class="ditem" onclick="tt()">🎵 TikTok</div>
+<div class="ditem" onclick="info()">ℹ️ Info</div>
+
+<div class="ditem logout" onclick="logout()">🚪 Logout</div>
+
+</div>
 
 </div>
 
@@ -48,6 +52,9 @@ HAI WEBSITE INI ADALAH WEBSITE JUAL PANEL YA GAYS DAN SEMUANYA OTOMATIS CUY BISA
 </div>
 
 <script>
+const drawer = document.getElementById("drawer")
+const overlay = document.getElementById("overlay")
+
 function openDrawer(){
 drawer.classList.add("open")
 overlay.classList.add("show")
@@ -93,6 +100,7 @@ const auth = getAuth(app)
 window.logout = function(){
 if(confirm("Logout sekarang?")){
 signOut(auth).then(()=>{
+sessionStorage.clear()
 location.replace("/login.html")
 })
 }
