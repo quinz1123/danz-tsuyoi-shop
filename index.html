@@ -1,75 +1,109 @@
-<!DOCTYPE html>  <html>  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1">  
-<title>Danz Panel</title>  
-<link rel="stylesheet" href="style.css">  
-</head>  <body>  <div class="overlay" id="overlay" onclick="closeDrawer()"></div>  <div class="drawer" id="drawer">  <div class="avatar">  
-<img src="https://files.catbox.moe/gi1xx7.jpeg">  
-</div>  <h3>DANZ</h3>  <button onclick="goPanel()">PANEL</button>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Danz Panel</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+
+<div class="drawer" id="drawer">
+
+<div class="avatar">
+<img src="https://files.catbox.moe/gi1xx7.jpeg">
+</div>
+
+<h3>DANZ</h3>
+
+<div class="drawer-menu slanted">
+<div class="sbtn" onclick="goPanel()">PANEL</div>
+<div class="sbtn" onclick="wa()">WHATSAPP</div>
+<div class="sbtn" onclick="tt()">TIKTOK</div>
+<div class="sbtn" onclick="info()">INFO</div>
+
+<div class="sbtn logout" onclick="logout()">LOGOUT</div>
+</div>
+
+</div>
+
+<div class="header">
+<div class="burger" onclick="openDrawer()">☰</div>
+</div>
+
+<div class="menu-grid">
+<button onclick="goPanel()">PANEL</button>
 <button onclick="wa()">WHATSAPP</button>
 <button onclick="tt()">TIKTOK</button>
 <button onclick="info()">INFO</button>
+</div>
 
-<button class="logout" onclick="logout()">LOGOUT</button>
+<div class="card fade">
+<img src="https://files.catbox.moe/7qva10.png">
+</div>
 
-</div>  <div class="header">  
-<span onclick="openDrawer()">☰</span>  
-</div>  <div class="menu-grid">  
-<button onclick="goPanel()">PANEL</button>  
-<button onclick="wa()">WHATSAPP</button>  
-<button onclick="tt()">TIKTOK</button>  
-<button onclick="info()">INFO</button>  
-</div>  <div class="card fade">  
-<img src="https://files.catbox.moe/7qva10.png">  
-</div>  <div class="desc fade">  
-HAI WEBSITE INI ADALAH WEBSITE JUAL PANEL YA GAYS DAN SEMUANYA OTOMATIS CUY BISA PILIH SESUAI HARGA  
-</div>  <script>  
-function openDrawer(){  
-drawer.classList.add("open")  
-overlay.classList.add("show")  
-}  
-  
-function closeDrawer(){  
-drawer.classList.remove("open")  
-overlay.classList.remove("show")  
-}  
-  
-function goPanel(){  
-location.href="create.html"  
-}  
-  
-function wa(){  
-window.open("https://wa.me/628xxxx","_blank")  
-}  
-  
-function tt(){  
-window.open("https://tiktok.com","_blank")  
-}  
-  
-function info(){  
-alert("Danz Premium Panel Shop")  
-}  
-</script>  <!-- FIREBASE LOGOUT -->  <script type="module">  
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"  
-import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"  
-  
-const firebaseConfig = {  
-apiKey: "AIzaSyA2Eb7HpVNE7yPKsYxNqdCNs78qCkov62U",  
-authDomain: "danz-tsuyoi.firebaseapp.com",  
-projectId: "danz-tsuyoi",  
-appId: "1:504620812619:web:02d66470fa3bed9fbfc0ce"  
-}  
-  
-const app = initializeApp(firebaseConfig)  
-const auth = getAuth(app)  
-  
-window.logout = function(){  
-if(confirm("Logout sekarang?")){  
-signOut(auth).then(()=>{  
-location.replace("/login.html")  
-})  
-}  
-}  
-</script>  <script type="module" src="auth.js"></script>  <script type="module" src="guard.js"></script>  </body>  
+<div class="desc fade">
+HAI WEBSITE INI ADALAH WEBSITE JUAL PANEL YA GAYS DAN SEMUANYA OTOMATIS CUY BISA PILIH SESUAI HARGA
+</div>
+
+<script>
+function openDrawer(){
+drawer.classList.add("open")
+overlay.classList.add("show")
+}
+
+function closeDrawer(){
+drawer.classList.remove("open")
+overlay.classList.remove("show")
+}
+
+function goPanel(){
+location.href="create.html"
+}
+
+function wa(){
+window.open("https://wa.me/628xxxx","_blank")
+}
+
+function tt(){
+window.open("https://tiktok.com","_blank")
+}
+
+function info(){
+alert("Danz Premium Panel Shop")
+}
+</script>
+
+<!-- FIREBASE LOGOUT -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"
+
+const firebaseConfig = {
+apiKey: "AIzaSyA2Eb7HpVNE7yPKsYxNqdCNs78qCkov62U",
+authDomain: "danz-tsuyoi.firebaseapp.com",
+projectId: "danz-tsuyoi",
+appId: "1:504620812619:web:02d66470fa3bed9fbfc0ce"
+}
+
+const app = initializeApp(firebaseConfig)
+const auth = getAuth(app)
+
+window.logout = function(){
+if(confirm("Logout sekarang?")){
+signOut(auth).then(()=>{
+location.replace("/login.html")
+})
+}
+}
+</script>
+
+<script type="module" src="auth.js"></script>
+<script type="module" src="guard.js"></script>
+
+</body>
 </html>
