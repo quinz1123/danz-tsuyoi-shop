@@ -5,7 +5,9 @@ signInWithEmailAndPassword,
 createUserWithEmailAndPassword,
 onAuthStateChanged,
 signOut,
-sendEmailVerification
+sendEmailVerification,
+GoogleAuthProvider,
+signInWithPopup
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"
 
 const firebaseConfig = {
@@ -24,10 +26,13 @@ onAuthStateChanged(auth,user=>{
 
 if(user){
 
+// GOOGLE LOGIN = AUTO VERIFIED
+if(user.providerData[0]?.providerId !== "google.com"){
 if(!user.emailVerified){
 alert("Verifikasi email dulu bro")
 signOut(auth)
 return
+}
 }
 
 localStorage.setItem("logged","yes")
@@ -44,7 +49,7 @@ localStorage.removeItem("logged")
 
 })
 
-// ================= LOGIN =================
+// ================= LOGIN EMAIL =================
 
 window.login = function(){
 
@@ -59,11 +64,12 @@ return
 signInWithEmailAndPassword(auth,email,password)
 .then(res=>{
 
+if(res.user.providerData[0]?.providerId !== "google.com"){
 if(!res.user.emailVerified){
 alert("Email belum diverifikasi. Cek inbox!")
-
 signOut(auth)
 return
+}
 }
 
 localStorage.setItem("logged","yes")
@@ -103,6 +109,23 @@ await sendEmailVerification(res.user)
 alert("OTP sudah dikirim ke email. Silakan cek inbox / spam!")
 
 location.replace("login.html")
+
+})
+.catch(e=>alert(e.message))
+
+}
+
+// ================= GOOGLE LOGIN =================
+
+window.googleLogin = function(){
+
+const provider = new GoogleAuthProvider()
+
+signInWithPopup(auth,provider)
+.then(()=>{
+
+localStorage.setItem("logged","yes")
+location.replace("/")
 
 })
 .catch(e=>alert(e.message))
