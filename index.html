@@ -1,34 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width">
-<title>Home</title>
-
-<style>
-body{margin:0;background:#05070f;color:white;font-family:sans-serif}
-
-button{
-width:90%;
-margin:20px;
-padding:15px;
-border:none;
-border-radius:20px;
-background:#6c8cff;
-color:white;
-font-size:18px;
-}
-</style>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h2 style="text-align:center">WELCOME DANZ PANEL</h2>
+<div class="overlay" onclick="closeDrawer()"></div>
+
+<div class="drawer glass">
+<img src="https://files.catbox.moe/gi1xx7.jpeg">
+<h3>DANZ</h3>
 
 <button onclick="location.href='create.html'">PANEL</button>
 <button onclick="logout()">LOGOUT</button>
+</div>
+
+<div class="header">
+<span onclick="openDrawer()">☰</span>
+</div>
+
+<div class="main">
+
+<button class="panel-btn">PANEL</button>
+
+<div class="hero">
+<img src="https://files.catbox.moe/7qva10.png">
+</div>
+
+<div class="welcome">
+WELCOME TO DANZ PANEL SHOP
+</div>
+
+</div>
 
 <script src="guard.js"></script>
-<script type="module" src="auth.js"></script>
+
+<script>
+function openDrawer(){
+document.querySelector('.drawer').classList.add('open')
+document.querySelector('.overlay').classList.add('show')
+}
+
+function closeDrawer(){
+document.querySelector('.drawer').classList.remove('open')
+document.querySelector('.overlay').classList.remove('show')
+}
+
+function logout(){
+sessionStorage.clear()
+location.href="login.html"
+}
+</script>
 
 </body>
 </html>
