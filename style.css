@@ -275,3 +275,35 @@ font-weight:bold
 .action.dark{
 background:#1b1e2b
 }
+
+.drawer-menu{
+margin-top:15px
+}
+
+.ditem{
+display:flex;
+align-items:center;
+gap:10px;
+padding:14px;
+margin:10px 0;
+border-radius:14px;
+background:rgba(255,255,255,.06);
+font-weight:600;
+cursor:pointer;
+transition:.25s
+}
+
+.ditem:hover{
+background:linear-gradient(135deg,#7b3cff,#2c8cff);
+box-shadow:0 0 15px rgba(123,60,255,.4)
+}
+
+.ditem.logout{
+background:rgba(220,38,38,.15);
+color:#f87171
+}
+
+.ditem.logout:hover{
+background:linear-gradient(45deg,#dc2626,#ef4444);
+color:white
+}
