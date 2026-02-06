@@ -2,7 +2,7 @@ export default async function(req,res){
 
 const {username,token,ram}=req.body
 
-if(token!=="RIZKY123") return res.json({error:"Token salah"})
+if(token!=="Danz123") return res.json({error:"Token salah"})
 
 const PANEL="https://danz-tsuyoi.flixiazone.my.id"
 const PTLA="ptla_HDoMsQBrkjxBYtS0ei6h4pV7NwBHPxZfqgmQBMeczbv"
