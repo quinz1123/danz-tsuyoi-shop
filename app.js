@@ -3,8 +3,6 @@ import {addDoc,collection} from "https://www.gstatic.com/firebasejs/10.7.1/fireb
 
 btn.onclick=async()=>{
 
-btn.innerText="PROCESS..."
-
 const r=await fetch("/api/create",{
 method:"POST",
 headers:{'Content-Type':'application/json'},
@@ -25,5 +23,4 @@ date:new Date().toLocaleString()
 })
 
 out.textContent=JSON.stringify(j,null,2)
-btn.innerText="CREATE PANEL"
-} 
+}
