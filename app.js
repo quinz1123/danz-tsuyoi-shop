@@ -1,5 +1,11 @@
+let isProcessing = false
+
 btn.onclick = async () => {
 
+if(isProcessing) return
+isProcessing = true
+
+btn.disabled = true
 btn.innerText="PROCESS..."
 
 out.innerHTML = `<div class="loader"></div>`
@@ -20,16 +26,12 @@ const j = await r.json()
 
 if(j.error){
 out.innerHTML = `<div style="color:red">${j.error}</div>`
-btn.innerText="CREATE PANEL"
+reset()
 return
 }
 
 out.innerHTML = `
-<div class="result-card" style="
-background:#121318;
-padding:15px;
-border-radius:16px;
-">
+<div class="result-card" style="background:#121318;padding:15px;border-radius:16px">
 
 <h3>✅ PANEL BERHASIL DIBUAT</h3>
 
@@ -39,36 +41,9 @@ border-radius:16px;
 <p><b>Server ID:</b> ${j.server_id}</p>
 <p><b>RAM:</b> ${j.ram}</p>
 
-<button onclick="window.open('${j.panel}','_blank')" style="
-margin-top:10px;
-width:100%;
-height:45px;
-border:none;
-border-radius:14px;
-background:linear-gradient(45deg,#6d28d9,#3b82f6);
-color:white;
-font-weight:bold
-">BUKA PANEL</button>
-
-<button onclick="navigator.clipboard.writeText('${j.password}')" style="
-margin-top:8px;
-width:100%;
-height:40px;
-border:none;
-border-radius:14px;
-background:#333;
-color:white
-">COPY PASSWORD</button>
-
-<button onclick="navigator.clipboard.writeText('${j.username}')" style="
-margin-top:8px;
-width:100%;
-height:40px;
-border:none;
-border-radius:14px;
-background:#333;
-color:white
-">COPY USERNAME</button>
+<button onclick="window.open('${j.panel}','_blank')" class="action">BUKA PANEL</button>
+<button onclick="navigator.clipboard.writeText('${j.password}')" class="action dark">COPY PASSWORD</button>
+<button onclick="navigator.clipboard.writeText('${j.username}')" class="action dark">COPY USERNAME</button>
 
 </div>
 `
@@ -79,5 +54,11 @@ out.innerHTML="ERROR CONNECTION"
 
 }
 
+reset()
+}
+
+function reset(){
+isProcessing=false
+btn.disabled=false
 btn.innerText="CREATE PANEL"
 }
