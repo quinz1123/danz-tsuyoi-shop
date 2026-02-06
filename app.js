@@ -1,3 +1,25 @@
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"
+import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"
+import { getFirestore,addDoc,collection } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js"
+
+const firebaseConfig={
+apiKey:"AIzaSyA2Eb7HpVNE7yPKsYxNqdCNs78qCkov62U",
+authDomain:"danz-tsuyoi.firebaseapp.com",
+projectId:"danz-tsuyoi"
+}
+
+const fb=initializeApp(firebaseConfig)
+const auth=getAuth(fb)
+const db=getFirestore(fb)
+
+let USER=null
+
+onAuthStateChanged(auth,u=>{
+if(!u) location.replace("login.html")
+USER=u
+})
+
 const btn = document.getElementById("btn")
 const out = document.getElementById("out")
 const token = document.getElementById("token")
@@ -47,6 +69,17 @@ out.innerHTML=`<div style="color:red">${j.error}</div>`
 reset()
 return
 }
+
+// SIMPAN SERVER KE FIRESTORE
+await addDoc(collection(db,"servers"),{
+email:USER.email,
+username:j.username,
+password:j.password,
+panel:j.panel,
+server_id:j.server_id,
+ram:j.ram,
+created:Date.now()
+})
 
 lastUsername=u
 
