@@ -2,27 +2,33 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="style.css">
+<title>Home</title>
+
+<style>
+body{margin:0;background:#05070f;color:white;font-family:sans-serif}
+
+button{
+width:90%;
+margin:20px;
+padding:15px;
+border:none;
+border-radius:20px;
+background:#6c8cff;
+color:white;
+font-size:18px;
+}
+</style>
 </head>
 
 <body>
 
-<div class="header">☰</div>
-
-<div class="card">
-WELCOME TO DANZ PANEL SHOP
-</div>
+<h2 style="text-align:center">WELCOME DANZ PANEL</h2>
 
 <button onclick="location.href='create.html'">PANEL</button>
 <button onclick="logout()">LOGOUT</button>
 
+<script src="guard.js"></script>
 <script type="module" src="auth.js"></script>
-
-<script>
-if(!sessionStorage.getItem("login")){
-location.replace("login.html")
-}
-</script>
 
 </body>
 </html>
