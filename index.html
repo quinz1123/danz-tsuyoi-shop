@@ -3,84 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Panel Dashboard</title>
+    <title>Premium Panel Generator</title>
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <div class="bg-glow"></div>
+    <div class="glass-bg"></div>
 
     <nav class="sidebar" id="sidebar">
-        <div class="nav-header">
-            <div class="logo-box">R</div>
-            <span>RIZKY DEV</span>
-            <i class='bx bx-x close-menu' id="menuClose"></i>
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class='bx bxl-visual-studio'></i>
+                <span>RIZKY DEV</span>
+            </div>
+            <i class='bx bx-chevron-left toggle-close' id="closeMenu"></i>
         </div>
-        <ul class="nav-links">
-            <li class="active" id="nav-home"><a href="#" onclick="showPage('home')"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
-            <li id="nav-create"><a href="#" onclick="showPage('create')"><i class='bx bxs-plus-circle'></i> Create Panel</a></li>
-            <li><a href="#"><i class='bx bxs-zap'></i> Status</a></li>
-            <li><a href="#"><i class='bx bxs-cog'></i> Settings</a></li>
+        <ul class="menu-list">
+            <li class="menu-item active" onclick="showPage('home')">
+                <i class='bx bxs-grid-alt'></i> <span>Dashboard</span>
+            </li>
+            <li class="menu-item" onclick="showPage('create')">
+                <i class='bx bxs-layer-plus'></i> <span>Create Panel</span>
+            </li>
+            <li class="menu-item">
+                <i class='bx bxs-server'></i> <span>List Server</span>
+            </li>
+            <li class="menu-item">
+                <i class='bx bxs-wallet'></i> <span>Deposit</span>
+            </li>
         </ul>
     </nav>
 
-    <main class="main-content">
-        <header class="navbar">
-            <i class='bx bx-menu toggle-menu' id="menuBtn"></i>
-            <div class="user-profile">
-                <span>Welcome, User</span>
-                <div class="avatar"></div>
-            </div>
+    <div class="main-content">
+        <header class="top-nav">
+            <i class='bx bx-menu-alt-left' id="openMenu"></i>
+            <div class="status-pill">System Online</div>
         </header>
 
         <section id="page-home" class="page active">
-            <div class="welcome-banner">
-                <h1>Ready to Build? 🚀</h1>
-                <p>Kelola panel Pterodactyl kamu dengan mudah dan cepat.</p>
-                <button class="btn-primary" onclick="showPage('create')">Mulai Buat Panel</button>
+            <div class="hero">
+                <h1>Welcome to <span class="gradient-text">Rizky Panel</span></h1>
+                <p>Create your Pterodactyl server with unlimited resources in seconds.</p>
+                <div class="hero-btns">
+                    <button class="btn-main" onclick="showPage('create')">Get Started</button>
+                    <button class="btn-sec">Learn More</button>
+                </div>
             </div>
         </section>
 
         <section id="page-create" class="page">
-            <div class="create-container">
-                <div class="form-card">
-                    <h2><i class='bx bxs-magic-wand'></i> Create New Panel</h2>
-                    <div class="input-group">
+            <div class="form-wrapper">
+                <div class="card-glass">
+                    <h3><i class='bx bxs-edit-alt'></i> Configure Server</h3>
+                    <div class="input-box">
                         <label>Admin Token</label>
-                        <input type="password" id="token" placeholder="Masukkan token...">
+                        <input type="password" id="token" placeholder="Enter security token...">
                     </div>
-                    <div class="input-group">
-                        <label>Username Panel</label>
+                    <div class="input-box">
+                        <label>Username</label>
                         <input type="text" id="username" placeholder="rizkydep">
                     </div>
-                    
-                    <div class="ram-selector">
-                        <label>Pilih Kapasitas RAM</label>
-                        <div class="ram-grid">
-                            <input type="radio" name="ram" value="1024" id="ram1" checked>
-                            <label for="ram1">1GB</label>
 
-                            <input type="radio" name="ram" value="2048" id="ram2">
-                            <label for="ram2">2GB</label>
-
-                            <input type="radio" name="ram" value="4096" id="ram3">
-                            <label for="ram3">4GB</label>
-
-                            <input type="radio" name="ram" value="0" id="ramUnli">
-                            <label for="ramUnli" class="unli-label">UNLIMITED</label>
+                    <div class="ram-selection">
+                        <label>Select RAM Capacity</label>
+                        <div class="ram-options">
+                            <input type="radio" name="ram" id="r1" value="1024" checked>
+                            <label for="r1">1GB</label>
+                            
+                            <input type="radio" name="ram" id="r2" value="2048">
+                            <label for="r2">2GB</label>
+                            
+                            <input type="radio" name="ram" id="r3" value="4096">
+                            <label for="r3">4GB</label>
+                            
+                            <input type="radio" name="ram" id="runli" value="0">
+                            <label for="runli" class="gold">UNLIMITED</label>
                         </div>
                     </div>
 
-                    <button id="btnCreate" class="btn-submit">Generate Panel Now</button>
+                    <button id="btnCreate" class="btn-primary">Generate Panel Account</button>
                 </div>
 
-                <div class="output-card">
-                    <h3>System Output</h3>
-                    <pre id="out">Silahkan isi form untuk memulai...</pre>
+                <div class="terminal-box">
+                    <div class="term-head"><span>Terminal Output</span></div>
+                    <pre id="out">Ready to receive commands...</pre>
                 </div>
             </div>
         </section>
-    </main>
+    </div>
 
     <script src="app.js"></script>
 </body>
