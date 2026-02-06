@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
-<script type="module" src="auth.js"></script>
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="style.css">
 </head>
 
-<body style="background:#0f0f0f;color:white;text-align:center;padding-top:120px">
+<body class="auth">
+
+<div class="auth-card">
 
 <h2>LOGIN</h2>
 
-<input id="email" placeholder="Email"><br><br>
-<input id="password" type="password" placeholder="Password"><br><br>
+<input id="email" placeholder="Email">
+<input id="password" type="password" placeholder="Password">
 
 <button onclick="login()">LOGIN</button>
 
-<p><a href="/register.html">Daftar</a></p>
+<p onclick="location.href='register.html'">Daftar</p>
+
+</div>
+
+<script type="module" src="auth.js"></script>
+
+<script>
+if(sessionStorage.getItem("login")){
+location.replace("/")
+}
+</script>
 
 </body>
 </html>
