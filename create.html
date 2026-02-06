@@ -1,15 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Create Panel</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
-<body style="background:#05070f;color:white">
+<body>
 
-<h2>Create Panel</h2>
+<div class="topbar" onclick="history.back()">← Create Panel</div>
 
-<script src="guard.js"></script>
+<div class="create fade">
+
+<input id="token" placeholder="Token">
+<input id="username" placeholder="Username">
+
+<select id="ram">
+<option value="1024">1 GB</option>
+<option value="2048">2 GB</option>
+<option value="4096">4 GB</option>
+<option value="0">UNLIMITED</option>
+</select>
+
+<button id="btn">CREATE PANEL</button>
+
+<div id="loader" class="loader" style="display:none"></div>
+
+<pre id="out" class="result-card"></pre>
+
+</div>
+
+<script src="app.js"></script>
+<script type="module" src="guard.js"></script>
 
 </body>
 </html>
