@@ -7,7 +7,6 @@ onAuthStateChanged,
 signOut
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"
 
-// CONFIG FIREBASE
 const firebaseConfig = {
 apiKey: "AIzaSyA2Eb7HpVNE7yPKsYxNqdCNs78qCkov62U",
 authDomain: "danz-tsuyoi.firebaseapp.com",
@@ -18,8 +17,7 @@ appId: "1:504620812619:web:02d66470fa3bed9fbfc0ce"
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 
-// ================== AUTO REDIRECT ==================
-
+// AUTO LOGIN CHECK
 onAuthStateChanged(auth,user=>{
 if(user){
 localStorage.setItem("logged","yes")
@@ -33,15 +31,14 @@ localStorage.removeItem("logged")
 }
 })
 
-// ================== LOGIN ==================
-
+// LOGIN
 window.login = function(){
 
 const email = document.getElementById("email").value.trim()
 const password = document.getElementById("password").value.trim()
 
 if(!email || !password){
-alert("Isi email dan password dulu")
+alert("Isi email dan password")
 return
 }
 
@@ -55,15 +52,14 @@ location.replace("/")
 .catch(e=>alert(e.message))
 }
 
-// ================== REGISTER ==================
-
+// REGISTER
 window.register = function(){
 
 const email = document.getElementById("email").value.trim()
 const password = document.getElementById("password").value.trim()
 
 if(!email || !password){
-alert("Lengkapi email & password")
+alert("Lengkapi data")
 return
 }
 
@@ -74,14 +70,13 @@ return
 
 createUserWithEmailAndPassword(auth,email,password)
 .then(()=>{
-alert("Daftar berhasil — silakan login")
+alert("Daftar berhasil, silakan login")
 location.replace("login.html")
 })
 .catch(e=>alert(e.message))
 }
 
-// ================== LOGOUT ==================
-
+// LOGOUT
 window.logout = function(){
 signOut(auth).then(()=>{
 localStorage.removeItem("logged")
