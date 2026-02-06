@@ -1,4 +1,3 @@
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"
 import {
 getAuth,
@@ -18,17 +17,22 @@ appId: "1:504620812619:web:02d66470fa3bed9fbfc0ce"
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 
-// AUTO GUARD
+// CEGAH LOOP
+let checked = false
+
 onAuthStateChanged(auth,user=>{
+if(checked) return
+checked = true
+
 const path = location.pathname
 
 if(user){
 if(path.includes("login") || path.includes("register")){
-location.href="/"
+location.replace("/")
 }
 }else{
 if(!path.includes("login") && !path.includes("register")){
-location.href="/login.html"
+location.replace("/login.html")
 }
 }
 })
@@ -36,7 +40,7 @@ location.href="/login.html"
 // LOGIN
 window.login=()=>{
 signInWithEmailAndPassword(auth,email.value,password.value)
-.then(()=>location.href="/")
+.then(()=>location.replace("/"))
 .catch(e=>alert(e.message))
 }
 
@@ -44,9 +48,9 @@ signInWithEmailAndPassword(auth,email.value,password.value)
 window.register=()=>{
 createUserWithEmailAndPassword(auth,email.value,password.value)
 .then(()=>{
-alert("Daftar berhasil, silakan login")
+alert("Daftar berhasil")
 signOut(auth)
-location.href="/login.html"
+location.replace("/login.html")
 })
 .catch(e=>alert(e.message))
 }
