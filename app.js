@@ -2,6 +2,8 @@ btn.onclick = async () => {
 
 btn.innerText="PROCESS..."
 
+out.innerHTML = `<div class="loader"></div>`
+
 try{
 
 const r = await fetch("/api/create",{
@@ -23,7 +25,7 @@ return
 }
 
 out.innerHTML = `
-<div style="
+<div class="result-card" style="
 background:#121318;
 padding:15px;
 border-radius:16px;
