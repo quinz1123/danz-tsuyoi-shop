@@ -48,6 +48,10 @@ onAuthStateChanged(auth,user=>{
 if(!user) location.href="login.html"
 })
 </script>
-
+<script>
+if(!sessionStorage.getItem("login")){
+location.replace("/login.html")
+}
+</script>
 </body>
 </html>
