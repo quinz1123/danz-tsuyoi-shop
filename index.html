@@ -1,17 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Dashboard - RizkyDev</title>
+    <title>RizkyDev - Premium Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <div class="sidebar" id="sidebar">
+    <div class="sidebar">
         <div class="logo-details">
-            <i class='bx bxl-meta icon'></i>
+            <i class='bx bxl-flutter icon'></i>
             <div class="logo_name">RIZKY DEV</div>
             <i class='bx bx-menu' id="btn"></i>
         </div>
@@ -48,60 +47,62 @@
     </div>
 
     <section class="home-section">
-        <div class="header">
-            <div class="text">Overview</div>
-            <div class="user-info">
-                <div class="status-badge">Online</div>
-                <div class="profile-img">R</div>
+        <nav class="top-nav">
+            <div class="text">Overview System</div>
+            <div class="profile-details">
+                <span class="admin_name">User Admin</span>
+                <div class="av-box">R</div>
             </div>
-        </div>
+        </nav>
 
-        <div class="container">
+        <div class="home-content">
             <div id="page-home" class="page active">
-                <div class="welcome-card">
-                    <h1>Selamat Datang Kembali! 🚀</h1>
-                    <p>Siap untuk membuat server Pterodactyl baru hari ini?</p>
-                    <button class="btn-main" onclick="showPage('create')">Mulai Buat Panel</button>
+                <div class="welcome-banner">
+                    <div class="banner-info">
+                        <h1>Unlock Your <br><span>Digital Potential</span></h1>
+                        <p>Kelola resource panel Pterodactyl dengan spek Unlimited secara instan.</p>
+                        <button class="btn-start" onclick="showPage('create')">Mulai Sekarang</button>
+                    </div>
                 </div>
             </div>
 
             <div id="page-create" class="page">
-                <div class="grid-layout">
-                    <div class="card-glass">
-                        <h3><i class='bx bxs-edit'></i> Form Create Panel</h3>
-                        <div class="input-box">
-                            <label>Token Admin</label>
-                            <input type="password" id="token" placeholder="Masukkan token rahasia...">
+                <div class="main-grid">
+                    <div class="glass-card">
+                        <h2><i class='bx bx-edit-alt'></i> Create Instance</h2>
+                        <div class="input-field">
+                            <label>Secret Admin Token</label>
+                            <input type="password" id="token" placeholder="••••••••">
                         </div>
-                        <div class="input-box">
-                            <label>Username</label>
+                        <div class="input-field">
+                            <label>Target Username</label>
                             <input type="text" id="username" placeholder="rizkydep">
                         </div>
-                        <div class="input-box">
-                            <label>Pilih RAM</label>
-                            <div class="ram-grid">
+                        <div class="input-field">
+                            <label>Memory Resource</label>
+                            <div class="ram-selection">
                                 <input type="radio" name="ram" id="r1" value="1024" checked>
-                                <label for="r1">1GB</label>
+                                <label for="r1">1 GB</label>
 
                                 <input type="radio" name="ram" id="r2" value="2048">
-                                <label for="r2">2GB</label>
+                                <label for="r2">2 GB</label>
 
                                 <input type="radio" name="ram" id="r3" value="4096">
-                                <label for="r3">4GB</label>
+                                <label for="r3">4 GB</label>
 
                                 <input type="radio" name="ram" id="runli" value="0">
-                                <label for="runli" class="unli-label">UNLI</label>
+                                <label for="runli" class="unli-btn">UNLIMITED</label>
                             </div>
                         </div>
-                        <button id="btnCreate" class="btn-submit">Deploy Now</button>
+                        <button id="btnCreate" class="btn-primary">Generate Panel Account</button>
                     </div>
 
-                    <div class="card-terminal">
-                        <div class="terminal-header">
-                            <div class="dots"><span></span><span></span><span></span></div>
-                            <span>Terminal Output</span>
+                    <div class="terminal-card">
+                        <div class="term-nav">
+                            <div class="circles"><i></i><i></i><i></i></div>
+                            <span>Console Log</span>
                         </div>
-                        <pre id="out">System ready...</pre>
+                        <pre id="out">System ready to deploy...</pre>
                     </div>
                 </div>
             </div>
