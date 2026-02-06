@@ -4,13 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Danz Panel</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
+<!-- overlay -->
 <div class="overlay" id="overlay" onclick="closeDrawer()"></div>
 
+<!-- drawer -->
 <div class="drawer" id="drawer">
 
 <div class="avatar">
@@ -24,48 +28,49 @@
 
 </div>
 
+<!-- header -->
 <div class="header">
 <span onclick="openDrawer()">☰</span>
 </div>
 
+<!-- menu -->
 <div class="menu-grid">
 <button onclick="goPanel()">PANEL</button>
 </div>
 
+<!-- image -->
 <div class="card">
 <img src="https://files.catbox.moe/7qva10.png">
 </div>
 
+<!-- desc -->
 <div class="desc">
 WELCOME TO DANZ PANEL SHOP
 </div>
 
 <script>
-function openDrawer(){drawer.classList.add("open");overlay.classList.add("show")}
-function closeDrawer(){drawer.classList.remove("open");overlay.classList.remove("show")}
-function goPanel(){location.href="create.html"}
-</script>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"
-import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"
-
-const firebaseConfig={
- apiKey:"ISI_API_KEY",
- authDomain:"ISI_AUTH_DOMAIN",
- projectId:"ISI_PROJECT_ID",
- appId:"ISI_APP_ID"
+function openDrawer(){
+drawer.classList.add("open")
+overlay.classList.add("show")
 }
 
-const app=initializeApp(firebaseConfig)
-const auth=getAuth(app)
+function closeDrawer(){
+drawer.classList.remove("open")
+overlay.classList.remove("show")
+}
 
-onAuthStateChanged(auth,user=>{
-if(!user) location.href="login.html"
-})
+function goPanel(){
+location.href="create.html"
+}
+
+function logout(){
+sessionStorage.clear()
+location.href="/login.html"
+}
 </script>
 
-<script type="module" src="guard.js"></script>
+<!-- GUARD LOGIN -->
+<script src="guard.js"></script>
 
 </body>
 </html>
