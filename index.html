@@ -1,76 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Danz Panel</title>
-
+<meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
-<!-- overlay -->
-<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<div class="header">☰</div>
 
-<!-- drawer -->
-<div class="drawer" id="drawer">
-
-<div class="avatar">
-<img src="https://files.catbox.moe/gi1xx7.jpeg">
-</div>
-
-<h3>DANZ</h3>
-
-<button onclick="goPanel()">PANEL</button>
-<button onclick="logout()">LOGOUT</button>
-
-</div>
-
-<!-- header -->
-<div class="header">
-<span onclick="openDrawer()">☰</span>
-</div>
-
-<!-- menu -->
-<div class="menu-grid">
-<button onclick="goPanel()">PANEL</button>
-</div>
-
-<!-- image -->
 <div class="card">
-<img src="https://files.catbox.moe/7qva10.png">
-</div>
-
-<!-- desc -->
-<div class="desc">
 WELCOME TO DANZ PANEL SHOP
 </div>
 
+<button onclick="location.href='create.html'">PANEL</button>
+<button onclick="logout()">LOGOUT</button>
+
+<script type="module" src="auth.js"></script>
+
 <script>
-function openDrawer(){
-drawer.classList.add("open")
-overlay.classList.add("show")
-}
-
-function closeDrawer(){
-drawer.classList.remove("open")
-overlay.classList.remove("show")
-}
-
-function goPanel(){
-location.href="create.html"
-}
-
-function logout(){
-sessionStorage.clear()
-location.href="/login.html"
+if(!sessionStorage.getItem("login")){
+location.replace("login.html")
 }
 </script>
-
-<!-- GUARD LOGIN -->
-<script src="guard.js"></script>
 
 </body>
 </html>
