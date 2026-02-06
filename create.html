@@ -1,57 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Create Panel</title>
+<meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="topbar" onclick="history.back()">← Create Panel</div>
+<h2>Create Panel</h2>
 
-<div class="create">
+<button onclick="location.href='/'">HOME</button>
 
-<input id="token" placeholder="Token">
-<input id="username" placeholder="Username">
-
-<select id="ram">
-<option value="1024">1 GB</option>
-<option value="2048">2 GB</option>
-<option value="4096">4 GB</option>
-<option value="0">UNLIMITED</option>
-</select>
-
-<button id="btn">CREATE PANEL</button>
-<pre id="out"></pre>
-
-</div>
-
-<script src="app.js"></script>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"
-import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"
-
-const firebaseConfig={
- apiKey:"ISI_API_KEY",
- authDomain:"ISI_AUTH_DOMAIN",
- projectId:"ISI_PROJECT_ID",
- appId:"ISI_APP_ID"
-}
-
-const app=initializeApp(firebaseConfig)
-const auth=getAuth(app)
-
-onAuthStateChanged(auth,user=>{
-if(!user) location.href="login.html"
-})
-</script>
 <script>
 if(!sessionStorage.getItem("login")){
-location.replace("/login.html")
+location.replace("login.html")
 }
 </script>
+
 </body>
 </html>
