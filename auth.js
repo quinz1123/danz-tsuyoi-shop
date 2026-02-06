@@ -16,21 +16,24 @@ const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 
 // LOGIN
-window.login=()=>{
+window.login = () => {
 signInWithEmailAndPassword(auth,email.value,password.value)
 .then(()=>{
 localStorage.setItem("logged","yes")
-location.href="/"
+
+setTimeout(()=>{
+location.replace("/")
+},300)
 })
 .catch(e=>alert(e.message))
 }
 
 // REGISTER
-window.register=()=>{
+window.register = () => {
 createUserWithEmailAndPassword(auth,email.value,password.value)
 .then(()=>{
 alert("Daftar berhasil")
-location.href="/login.html"
+location.replace("/login.html")
 })
 .catch(e=>alert(e.message))
 }
