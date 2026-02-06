@@ -14,14 +14,13 @@
 <div class="drawer" id="drawer">
 
 <div class="avatar">
-  <img src="https://files.catbox.moe/gi1xx7.jpeg">
+<img src="https://files.catbox.moe/gi1xx7.jpeg">
 </div>
+
 <h3>DANZ</h3>
 
 <button onclick="goPanel()">PANEL</button>
-<button onclick="wa()">WHATSAPP</button>
-<button onclick="info()">INFO</button>
-<button onclick="tt()">TIKTOK</button>
+<button onclick="logout()">LOGOUT</button>
 
 </div>
 
@@ -31,9 +30,6 @@
 
 <div class="menu-grid">
 <button onclick="goPanel()">PANEL</button>
-<button onclick="wa()">WHATSAPP</button>
-<button onclick="tt()">TIKTOK</button>
-<button onclick="info()">INFO</button>
 </div>
 
 <div class="card">
@@ -41,36 +37,35 @@
 </div>
 
 <div class="desc">
-HAI WEBSITE INI ADALAH WEBSITE JUAL PANEL YA GAYS DAN SEMUANYA OTOMATIS CUY BISA PILIH SESUAI HARGA
+WELCOME TO DANZ PANEL SHOP
 </div>
 
 <script>
-function openDrawer(){
-drawer.classList.add("open")
-overlay.classList.add("show")
-}
-
-function closeDrawer(){
-drawer.classList.remove("open")
-overlay.classList.remove("show")
-}
-
-function goPanel(){
-location.href="create.html"
-}
-
-function wa(){
-window.open("https://wa.me/628xxxx","_blank")
-}
-
-function tt(){
-window.open("https://tiktok.com","_blank")
-}
-
-function info(){
-alert("Danz Premium Panel Shop")
-}
+function openDrawer(){drawer.classList.add("open");overlay.classList.add("show")}
+function closeDrawer(){drawer.classList.remove("open");overlay.classList.remove("show")}
+function goPanel(){location.href="create.html"}
 </script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"
+import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"
+
+const firebaseConfig={
+ apiKey:"ISI_API_KEY",
+ authDomain:"ISI_AUTH_DOMAIN",
+ projectId:"ISI_PROJECT_ID",
+ appId:"ISI_APP_ID"
+}
+
+const app=initializeApp(firebaseConfig)
+const auth=getAuth(app)
+
+onAuthStateChanged(auth,user=>{
+if(!user) location.href="login.html"
+})
+</script>
+
+<script type="module" src="auth.js"></script>
 
 </body>
 </html>
