@@ -1,114 +1,51 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RizkyDev - Premium Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Danz Panel</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="sidebar">
-        <div class="logo-details">
-            <i class='bx bxl-flutter icon'></i>
-            <div class="logo_name">RIZKY DEV</div>
-            <i class='bx bx-menu' id="btn"></i>
-        </div>
-        <ul class="nav-list">
-            <li>
-                <a href="#" onclick="showPage('home')">
-                    <i class='bx bx-grid-alt'></i>
-                    <span class="links_name">Dashboard</span>
-                </a>
-                <span class="tooltip">Dashboard</span>
-            </li>
-            <li>
-                <a href="#" onclick="showPage('create')">
-                    <i class='bx bx-plus-circle'></i>
-                    <span class="links_name">Create Panel</span>
-                </a>
-                <span class="tooltip">Create Panel</span>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-server'></i>
-                    <span class="links_name">Server List</span>
-                </a>
-                <span class="tooltip">Server List</span>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-cog'></i>
-                    <span class="links_name">Setting</span>
-                </a>
-                <span class="tooltip">Setting</span>
-            </li>
-        </ul>
-    </div>
 
-    <section class="home-section">
-        <nav class="top-nav">
-            <div class="text">Overview System</div>
-            <div class="profile-details">
-                <span class="admin_name">User Admin</span>
-                <div class="av-box">R</div>
-            </div>
-        </nav>
+<div class="drawer" id="drawer">
+<div class="avatar">FOTO</div>
+<h3>DANZ</h3>
 
-        <div class="home-content">
-            <div id="page-home" class="page active">
-                <div class="welcome-banner">
-                    <div class="banner-info">
-                        <h1>Unlock Your <br><span>Digital Potential</span></h1>
-                        <p>Kelola resource panel Pterodactyl dengan spek Unlimited secara instan.</p>
-                        <button class="btn-start" onclick="showPage('create')">Mulai Sekarang</button>
-                    </div>
-                </div>
-            </div>
+<button onclick="goPanel()">PANEL</button>
+<button>WHATSAPP</button>
+<button>INFO</button>
+<button>TIKTOK</button>
+</div>
 
-            <div id="page-create" class="page">
-                <div class="main-grid">
-                    <div class="glass-card">
-                        <h2><i class='bx bx-edit-alt'></i> Create Instance</h2>
-                        <div class="input-field">
-                            <label>Secret Admin Token</label>
-                            <input type="password" id="token" placeholder="••••••••">
-                        </div>
-                        <div class="input-field">
-                            <label>Target Username</label>
-                            <input type="text" id="username" placeholder="rizkydep">
-                        </div>
-                        <div class="input-field">
-                            <label>Memory Resource</label>
-                            <div class="ram-selection">
-                                <input type="radio" name="ram" id="r1" value="1024" checked>
-                                <label for="r1">1 GB</label>
+<div class="header">
+<span onclick="toggle()">☰</span>
+</div>
 
-                                <input type="radio" name="ram" id="r2" value="2048">
-                                <label for="r2">2 GB</label>
+<div class="menu-grid">
+<button onclick="goPanel()">PANEL</button>
+<button>WHATSAPP</button>
+<button>TIKTOK</button>
+<button>INFO</button>
+</div>
 
-                                <input type="radio" name="ram" id="r3" value="4096">
-                                <label for="r3">4 GB</label>
+<div class="card">
+<img src="https://i.imgur.com/8Km9tLL.jpeg">
+</div>
 
-                                <input type="radio" name="ram" id="runli" value="0">
-                                <label for="runli" class="unli-btn">UNLIMITED</label>
-                            </div>
-                        </div>
-                        <button id="btnCreate" class="btn-primary">Generate Panel Account</button>
-                    </div>
+<div class="desc">
+HAI WEBSITE INI ADALAH WEBSITE JUAL PANEL YA GAYS DAN SEMUANYA OTOMATIS CUY BISA PILIH SESUAI HARGA
+</div>
 
-                    <div class="terminal-card">
-                        <div class="term-nav">
-                            <div class="circles"><i></i><i></i><i></i></div>
-                            <span>Console Log</span>
-                        </div>
-                        <pre id="out">System ready to deploy...</pre>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<script>
+function toggle(){
+drawer.classList.toggle("open")
+}
+function goPanel(){
+location.href="create.html"
+}
+</script>
 
-    <script src="app.js"></script>
 </body>
 </html>
