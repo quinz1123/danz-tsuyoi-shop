@@ -2,58 +2,19 @@
 <html>
 <head>
 <title>Login</title>
-<script type="module" src="/auth.js"></script>
-
-<style>
-body{
-background:#0b0f17;
-color:white;
-font-family:sans-serif;
-display:flex;
-align-items:center;
-justify-content:center;
-height:100vh
-}
-.box{
-background:#111827;
-padding:30px;
-border-radius:15px;
-width:300px;
-text-align:center
-}
-input{
-width:100%;
-padding:12px;
-margin:10px 0;
-border-radius:10px;
-border:none;
-background:#1f2937;
-color:white
-}
-button{
-width:100%;
-padding:12px;
-border:none;
-border-radius:12px;
-background:linear-gradient(90deg,#7c3aed,#2563eb);
-color:white
-}
-a{color:#7c3aed}
-</style>
+<script type="module" src="auth.js"></script>
 </head>
 
-<body>
+<body style="background:#0f0f0f;color:white;text-align:center;padding-top:120px">
 
-<div class="box">
 <h2>LOGIN</h2>
 
-<input id="email" placeholder="Email">
-<input id="password" type="password" placeholder="Password">
+<input id="email" placeholder="Email"><br><br>
+<input id="password" type="password" placeholder="Password"><br><br>
 
 <button onclick="login()">LOGIN</button>
 
 <p><a href="/register.html">Daftar</a></p>
-</div>
 
 </body>
 </html>
