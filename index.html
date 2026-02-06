@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,10 +15,10 @@
 <div class="drawer" id="drawer">
 
 <div class="avatar">
-<img id="avatar" src="https://files.catbox.moe/gi1xx7.jpeg">
+<img src="https://files.catbox.moe/gi1xx7.jpeg">
 </div>
 
-<h3 id="name">User</h3>
+<h3>DANZ</h3>
 
 <div class="drawer-menu slanted">
 <div class="sbtn" onclick="goPanel()">PANEL</div>
@@ -77,7 +78,30 @@ alert("Danz Premium Panel Shop")
 }
 </script>
 
-<!-- AUTH -->
+<!-- FIREBASE LOGOUT -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"
+
+const firebaseConfig = {
+apiKey: "AIzaSyA2Eb7HpVNE7yPKsYxNqdCNs78qCkov62U",
+authDomain: "danz-tsuyoi.firebaseapp.com",
+projectId: "danz-tsuyoi",
+appId: "1:504620812619:web:02d66470fa3bed9fbfc0ce"
+}
+
+const app = initializeApp(firebaseConfig)
+const auth = getAuth(app)
+
+window.logout = function(){
+if(confirm("Logout sekarang?")){
+signOut(auth).then(()=>{
+location.replace("/login.html")
+})
+}
+}
+</script>
+
 <script type="module" src="auth.js"></script>
 <script type="module" src="guard.js"></script>
 
