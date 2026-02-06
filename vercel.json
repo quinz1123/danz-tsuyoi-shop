@@ -3,4 +3,4 @@
 "rewrites":[
 {"source":"/api/create","destination":"/api/create.js"}
 ]
-}
+} 
