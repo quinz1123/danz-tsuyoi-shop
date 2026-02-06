@@ -1,58 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Danz Panel</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="overlay" onclick="closeDrawer()"></div>
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
 
-<div class="drawer glass">
+<div class="drawer" id="drawer">
+
+<div class="avatar">
 <img src="https://files.catbox.moe/gi1xx7.jpeg">
+</div>
+
 <h3>DANZ</h3>
 
-<button onclick="location.href='create.html'">PANEL</button>
-<button onclick="logout()">LOGOUT</button>
+<button onclick="goPanel()">PANEL</button>
+<button onclick="wa()">WHATSAPP</button>
+<button onclick="tt()">TIKTOK</button>
+<button onclick="info()">INFO</button>
+
 </div>
 
 <div class="header">
 <span onclick="openDrawer()">☰</span>
 </div>
 
-<div class="main">
+<div class="menu-grid">
+<button onclick="goPanel()">PANEL</button>
+<button onclick="wa()">WHATSAPP</button>
+<button onclick="tt()">TIKTOK</button>
+<button onclick="info()">INFO</button>
+</div>
 
-<button class="panel-btn">PANEL</button>
-
-<div class="hero">
+<div class="card fade">
 <img src="https://files.catbox.moe/7qva10.png">
 </div>
 
-<div class="welcome">
-WELCOME TO DANZ PANEL SHOP
+<div class="desc fade">
+HAI WEBSITE INI ADALAH WEBSITE JUAL PANEL YA GAYS DAN SEMUANYA OTOMATIS CUY BISA PILIH SESUAI HARGA
 </div>
-
-</div>
-
-<script src="guard.js"></script>
 
 <script>
 function openDrawer(){
-document.querySelector('.drawer').classList.add('open')
-document.querySelector('.overlay').classList.add('show')
+drawer.classList.add("open")
+overlay.classList.add("show")
 }
 
 function closeDrawer(){
-document.querySelector('.drawer').classList.remove('open')
-document.querySelector('.overlay').classList.remove('show')
+drawer.classList.remove("open")
+overlay.classList.remove("show")
 }
 
-function logout(){
-sessionStorage.clear()
-location.href="login.html"
+function goPanel(){
+location.href="create.html"
+}
+
+function wa(){
+window.open("https://wa.me/628xxxx","_blank")
+}
+
+function tt(){
+window.open("https://tiktok.com","_blank")
+}
+
+function info(){
+alert("Danz Premium Panel Shop")
 }
 </script>
+
+<script type="module" src="guard.js"></script>
 
 </body>
 </html>
