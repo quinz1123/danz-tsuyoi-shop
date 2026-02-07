@@ -19,22 +19,26 @@ projectId:"danz-tsuyoi"
 const app=initializeApp(firebaseConfig)
 const auth=getAuth(app)
 
-// ===== UI GATE (ANTI FLICKER) =====
-document.body.style.opacity="0"
+/* ================= UI GATE ================= */
 
-// ===== GLOBAL AUTH LISTENER =====
+document.body.style.opacity="0"
+document.body.style.visibility="hidden"
+
+/* ================= AUTH LISTENER ================= */
+
 onAuthStateChanged(auth,user=>{
 
-// remove gate
 document.body.style.opacity="1"
-const g=document.getElementById("gate")
-if(g) g.remove()
+document.body.style.visibility="visible"
+
+const gate=document.getElementById("gate")
+if(gate) gate.remove()
 
 const path=location.pathname
 
 if(user){
 
-// email login wajib verified
+// Email wajib verified
 if(user.providerData[0]?.providerId!=="google.com" && !user.emailVerified){
 alert("Verifikasi email dulu")
 signOut(auth)
@@ -57,19 +61,19 @@ location.replace("login.html")
 
 })
 
-// ===== LOGIN EMAIL =====
-window.login=function(){
+/* ================= LOGIN EMAIL ================= */
 
+window.login=()=>{
 signInWithEmailAndPassword(
 auth,
 email.value.trim(),
 password.value.trim()
 ).catch(e=>alert(e.message))
-
 }
 
-// ===== REGISTER + OTP =====
-window.register=function(){
+/* ================= REGISTER + OTP ================= */
+
+window.register=()=>{
 
 createUserWithEmailAndPassword(
 auth,
@@ -83,13 +87,15 @@ location.replace("login.html")
 
 }
 
-// ===== GOOGLE LOGIN =====
-window.googleLogin=function(){
+/* ================= GOOGLE LOGIN ================= */
+
+window.googleLogin=()=>{
 signInWithPopup(auth,new GoogleAuthProvider())
 .catch(e=>alert(e.message))
 }
 
-// ===== LOGOUT =====
-window.logout=function(){
+/* ================= LOGOUT ================= */
+
+window.logout=()=>{
 signOut(auth)
 }
