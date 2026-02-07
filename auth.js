@@ -5,78 +5,92 @@ signInWithEmailAndPassword,
 createUserWithEmailAndPassword,
 onAuthStateChanged,
 signOut,
-sendEmailVerification,
 GoogleAuthProvider,
 signInWithPopup
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"
 
-const firebaseConfig={
-apiKey:"AIzaSyA2Eb7HpVNE7yPKsYxNqdCNs78qCkov62U",
-authDomain:"danz-tsuyoi.firebaseapp.com",
-projectId:"danz-tsuyoi"
+const firebaseConfig = {
+apiKey: "AIzaSyA2Eb7HpVNE7yPKsYxNqdCNs78qCkov62U",
+authDomain: "danz-tsuyoi.firebaseapp.com",
+projectId: "danz-tsuyoi",
+appId: "1:504620812619:web:02d66470fa3bed9fbfc0ce"
 }
 
-const app=initializeApp(firebaseConfig)
-const auth=getAuth(app)
+initializeApp(firebaseConfig)
+const auth = getAuth()
 
-// AUTH READY GATE
+const gate = document.getElementById("gate")
+
+// HARD BLOCK SCREEN
+document.body.style.visibility="hidden"
+
+// ================= CORE =================
+
 onAuthStateChanged(auth,user=>{
-
-// show HTML only NOW
-document.documentElement.style.display="block"
-document.body.style.display="block"
-
-// remove loader
-const boot=document.getElementById("boot")
-if(boot) boot.remove()
-
-const path=location.pathname
 
 if(user){
 
-if(user.providerData[0]?.providerId!=="google.com" && !user.emailVerified){
-alert("Verifikasi email dulu")
-signOut(auth)
-return
-}
-
-if(path.includes("login")||path.includes("register")){
+if(location.pathname.includes("login")){
 location.replace("/")
+return
 }
 
 }else{
 
-if(!path.includes("login")&&!path.includes("register")){
-location.replace("login.html")
+if(!location.pathname.includes("login")){
+location.replace("/login.html")
+return
 }
 
 }
+
+// SHOW PAGE
+gate.remove()
+document.body.style.visibility="visible"
 
 })
 
-// LOGIN
-window.login=()=>{
-signInWithEmailAndPassword(auth,email.value,password.value)
-.catch(e=>alert(e.message))
+// ================= LOGIN =================
+
+window.login = async function(){
+
+const email = document.getElementById("email").value
+const password = document.getElementById("password").value
+
+if(!email||!password) return alert("Isi semua")
+
+await signInWithEmailAndPassword(auth,email,password)
+
 }
 
-// REGISTER
-window.register=()=>{
-createUserWithEmailAndPassword(auth,email.value,password.value)
-.then(r=>{
-sendEmailVerification(r.user)
-alert("OTP dikirim")
+// ================= GOOGLE =================
+
+window.googleLogin = async function(){
+
+const provider = new GoogleAuthProvider()
+await signInWithPopup(auth,provider)
+
+}
+
+// ================= REGISTER =================
+
+window.register = async function(){
+
+const email = document.getElementById("email").value
+const password = document.getElementById("password").value
+
+if(password.length<6) return alert("Min 6 char")
+
+await createUserWithEmailAndPassword(auth,email,password)
+
 location.replace("login.html")
-}).catch(e=>alert(e.message))
+
 }
 
-// GOOGLE
-window.googleLogin=()=>{
-signInWithPopup(auth,new GoogleAuthProvider())
-.catch(e=>alert(e.message))
-}
+// ================= LOGOUT =================
 
-// LOGOUT
-window.logout=()=>{
+window.logout = function(){
+
 signOut(auth)
+
 }
