@@ -22,8 +22,12 @@ const auth=getAuth(app)
 // GLOBAL AUTH GATE
 onAuthStateChanged(auth,user=>{
 
-const boot=document.getElementById("boot")
-if(boot) boot.remove()
+// buka body
+document.body.style.visibility="visible"
+
+// hapus loading gate
+const gate=document.getElementById("gate")
+if(gate) gate.remove()
 
 const path=location.pathname
 
