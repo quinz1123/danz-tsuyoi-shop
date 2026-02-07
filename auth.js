@@ -24,41 +24,46 @@ const photoInput=document.getElementById("photoInput")
 const photoEl=document.getElementById("userPhoto")
 const nameEl=document.getElementById("userName")
 
-let currentUID=null
+let uid=null
 
 window.pickPhoto=()=>photoInput.click()
 
 photoInput?.addEventListener("change",e=>{
-const f=e.target.files[0]
-if(!f||!currentUID)return
+const file=e.target.files[0]
+if(!file||!uid)return
 
-const r=new FileReader()
-r.onload=()=>{
-localStorage.setItem(currentUID+"_photo",r.result)
-photoEl.src=r.result
+const reader=new FileReader()
+reader.onload=()=>{
+localStorage.setItem(uid+"_photo",reader.result)
+photoEl.src=reader.result
 }
-r.readAsDataURL(f)
+reader.readAsDataURL(file)
 })
 
 window.editName=()=>{
-if(!currentUID)return
+if(!uid)return
 const n=prompt("Nama baru?")
 if(!n)return
-localStorage.setItem(currentUID+"_name",n)
+localStorage.setItem(uid+"_name",n)
 nameEl.innerText=n
 }
 
 onAuthStateChanged(auth,user=>{
 if(!user)return
 
-currentUID=user.uid
+uid=user.uid
 
-const savedName=localStorage.getItem(currentUID+"_name")
-const savedPhoto=localStorage.getItem(currentUID+"_photo")
+const savedName=localStorage.getItem(uid+"_name")
+const savedPhoto=localStorage.getItem(uid+"_photo")
 
-nameEl.innerText=savedName||user.displayName||user.email.split("@")[0]
+nameEl.innerText=
+savedName||
+user.displayName||
+user.email.split("@")[0]
 
-photoEl.src=savedPhoto||user.photoURL||
+photoEl.src=
+savedPhoto||
+user.photoURL||
 `https://ui-avatars.com/api/?name=${nameEl.innerText}`
 })
 
@@ -66,35 +71,24 @@ photoEl.src=savedPhoto||user.photoURL||
 window.login=async()=>{
 const email=document.getElementById("email").value.trim()
 const pass=document.getElementById("password").value.trim()
-if(!email||!pass)return alert("Lengkapi")
-
-try{
 await signInWithEmailAndPassword(auth,email,pass)
 location.replace("/")
-}catch(e){alert(e.message)}
 }
 
 // GOOGLE
 window.googleLogin=async()=>{
-try{
 await signInWithPopup(auth,new GoogleAuthProvider())
 location.replace("/")
-}catch(e){alert(e.message)}
 }
 
 // REGISTER
 window.register=async()=>{
 const email=document.getElementById("email").value.trim()
 const pass=document.getElementById("password").value.trim()
-
-if(pass.length<6)return alert("Min 6 karakter")
-
-try{
 const r=await createUserWithEmailAndPassword(auth,email,pass)
 await sendEmailVerification(r.user)
 alert("Cek email")
 location.replace("login.html")
-}catch(e){alert(e.message)}
 }
 
 // LOGOUT
