@@ -63,7 +63,7 @@ startup:"bash",
 
 environment:{
 CMD_RUN:"node index.js" 
-MAX_PLAYERS:"99999"
+MAX_PLAYERS:"100"
 },
 
 limits:{
