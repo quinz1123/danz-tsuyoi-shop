@@ -26,41 +26,46 @@ const photoInput=document.getElementById("photoInput")
 const photoEl=document.getElementById("userPhoto")
 const nameEl=document.getElementById("userName")
 
+let currentUID=null
+
 window.pickPhoto=()=>photoInput.click()
 
 photoInput?.addEventListener("change",e=>{
 const f=e.target.files[0]
-if(!f)return
+if(!f||!currentUID)return
 
 const r=new FileReader()
 r.onload=()=>{
-localStorage.setItem("customPhoto",r.result)
+localStorage.setItem(`photo_${currentUID}`,r.result)
 photoEl.src=r.result
 }
 r.readAsDataURL(f)
 })
 
 window.editName=()=>{
+if(!currentUID)return
 const n=prompt("Nama baru?")
 if(!n)return
-localStorage.setItem("customName",n)
+
+localStorage.setItem(`name_${currentUID}`,n)
 nameEl.innerText=n
 }
 
 // ================= AUTO LOAD USER =================
 
 onAuthStateChanged(auth,user=>{
-if(!user) return
 
-// NAME
-let savedName=localStorage.getItem("customName")
+if(!user)return
+
+currentUID=user.uid
+
+let savedName=localStorage.getItem(`name_${currentUID}`)
 let name=savedName||user.displayName||user.email.split("@")[0]
 nameEl.innerText=name
 
-// PHOTO
-let savedPhoto=localStorage.getItem("customPhoto")
+let savedPhoto=localStorage.getItem(`photo_${currentUID}`)
 photoEl.src=savedPhoto||user.photoURL||
-"https://ui-avatars.com/api/?name="+name
+`https://ui-avatars.com/api/?name=${name}`
 
 })
 
