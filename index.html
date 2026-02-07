@@ -13,27 +13,24 @@
 
 <div class="drawer" id="drawer">
 
+<!-- PROFILE -->
+
 <div class="avatar">
-<img id="userPhoto" style="border-radius:50%;width:90px;height:90px;object-fit:cover">
+
+<img id="userPhoto">
 
 <input type="file" id="photoInput" accept="image/*" hidden>
 
-<button onclick="pickPhoto()" style="
-margin:10px auto 0;
-display:block;
-background:#1b1e2b;
-border:none;
-color:white;
-padding:6px 14px;
-border-radius:10px">
-Ganti Foto
-</button>
+<button class="edit-photo" onclick="pickPhoto()">📷 Ganti Foto</button>
+
 </div>
 
 <h3 class="edit-name">
 <span id="userName">User</span>
-<span onclick="editName()" style="cursor:pointer">✏️</span>
+<span onclick="editName()">✏️</span>
 </h3>
+
+<!-- MENU -->
 
 <div class="drawer-menu slanted">
 <div class="sbtn" onclick="goPanel()">PANEL</div>
@@ -47,9 +44,13 @@ Ganti Foto
 
 </div>
 
+<!-- HEADER -->
+
 <div class="header">
 <div class="burger" onclick="openDrawer()">☰</div>
 </div>
+
+<!-- MAIN -->
 
 <div class="menu-grid">
 <button onclick="goPanel()">PANEL</button>
@@ -92,26 +93,11 @@ drawer.classList.remove("open")
 overlay.classList.remove("show")
 }
 
-function goPanel(){
-location.href="create.html"
-}
-
-function openServers(){
-location.href="servers.html"
-}
-
-function wa(){
-window.open("https://wa.me/628xxxx","_blank")
-}
-
-function tt(){
-window.open("https://tiktok.com","_blank")
-}
-
-function info(){
-alert("Danz Premium Panel Shop")
-}
-
+function goPanel(){location.href="create.html"}
+function openServers(){location.href="servers.html"}
+function wa(){window.open("https://wa.me/628xxxx","_blank")}
+function tt(){window.open("https://tiktok.com","_blank")}
+function info(){alert("Danz Premium Panel Shop")}
 </script>
 
 <script type="module" src="auth.js"></script>
