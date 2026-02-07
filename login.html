@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<!-- HARD HIDE HTML BEFORE JS -->
 <style>
-body{visibility:hidden}
+html,body{display:none}
 </style>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Login</title>
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body class="auth-bg">
-<div id="gate" style="
+
+<!-- LOADER -->
+<div id="boot" style="
 position:fixed;
 inset:0;
 background:#0e0f13;
-z-index:9999;
+z-index:99999;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -23,6 +29,7 @@ color:white;
 font-weight:bold">
 Loading...
 </div>
+
 <div class="auth-card fade">
 
 <h2>LOGIN</h2>
