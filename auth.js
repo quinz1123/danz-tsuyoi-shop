@@ -7,138 +7,88 @@ onAuthStateChanged,
 signOut,
 sendEmailVerification,
 GoogleAuthProvider,
-signInWithPopup
+signInWithPopup,
+updateProfile
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"
 
-const firebaseConfig = {
-apiKey: "AIzaSyA2Eb7HpVNE7yPKsYxNqdCNs78qCkov62U",
-authDomain: "danz-tsuyoi.firebaseapp.com",
-projectId: "danz-tsuyoi",
-appId: "1:504620812619:web:02d66470fa3bed9fbfc0ce"
+const firebaseConfig={
+apiKey:"AIzaSyA2Eb7HpVNE7yPKsYxNqdCNs78qCkov62U",
+authDomain:"danz-tsuyoi.firebaseapp.com",
+projectId:"danz-tsuyoi",
+appId:"1:504620812619:web:02d66470fa3bed9fbfc0ce"
 }
 
-const app = initializeApp(firebaseConfig)
-const auth = getAuth(app)
-
-// ================= AUTO LOGIN CHECK =================
+const app=initializeApp(firebaseConfig)
+const auth=getAuth(app)
 
 onAuthStateChanged(auth,user=>{
 
 if(user){
 
-// GOOGLE LOGIN = AUTO VERIFIED
-if(user.providerData[0]?.providerId !== "google.com"){
-if(!user.emailVerified){
-alert("Verifikasi email dulu bro")
-signOut(auth)
-return
-}
-}
+let name=user.displayName||user.email.split("@")[0]
 
-localStorage.setItem("logged","yes")
+document.getElementById("userName")?.innerText=name
+document.getElementById("userPhoto")?.setAttribute(
+"src",
+user.photoURL||`https://ui-avatars.com/api/?name=${name}`
+)
 
-if(location.pathname.includes("login") || location.pathname.includes("register")){
-setTimeout(()=>{
+if(location.pathname.includes("login")){
 location.replace("/")
-},300)
 }
 
 }else{
-localStorage.removeItem("logged")
+
+if(!location.pathname.includes("login")){
+location.replace("/login.html")
+}
+
 }
 
 })
 
-// ================= LOGIN EMAIL =================
+// LOGIN
+window.login=async()=>{
+const e=email.value.trim()
+const p=password.value.trim()
+if(!e||!p) return alert("Lengkapi")
 
-window.login = function(){
-
-const email = document.getElementById("email").value.trim()
-const password = document.getElementById("password").value.trim()
-
-if(!email || !password){
-alert("Isi email dan password")
-return
+await signInWithEmailAndPassword(auth,e,p)
 }
 
-signInWithEmailAndPassword(auth,email,password)
-.then(res=>{
-
-if(res.user.providerData[0]?.providerId !== "google.com"){
-if(!res.user.emailVerified){
-alert("Email belum diverifikasi. Cek inbox!")
-signOut(auth)
-return
-}
+// GOOGLE
+window.googleLogin=async()=>{
+await signInWithPopup(auth,new GoogleAuthProvider())
 }
 
-localStorage.setItem("logged","yes")
+// REGISTER
+window.register=async()=>{
+const e=email.value.trim()
+const p=password.value.trim()
+if(p.length<6) return alert("Min 6")
 
-setTimeout(()=>{
-location.replace("/")
-},300)
-
-})
-.catch(e=>alert(e.message))
-
-}
-
-// ================= REGISTER + OTP =================
-
-window.register = function(){
-
-const email = document.getElementById("email").value.trim()
-const password = document.getElementById("password").value.trim()
-
-if(!email || !password){
-alert("Lengkapi data")
-return
-}
-
-if(password.length < 6){
-alert("Password minimal 6 karakter")
-return
-}
-
-createUserWithEmailAndPassword(auth,email,password)
-.then(async(res)=>{
-
-await res.user.reload()
-await sendEmailVerification(res.user)
-
-alert("OTP sudah dikirim ke email. Silakan cek inbox / spam!")
-
+const r=await createUserWithEmailAndPassword(auth,e,p)
+await sendEmailVerification(r.user)
+alert("Cek email verifikasi")
 location.replace("login.html")
-
-})
-.catch(e=>alert(e.message))
-
 }
 
-// ================= GOOGLE LOGIN =================
-
-window.googleLogin = function(){
-
-const provider = new GoogleAuthProvider()
-
-signInWithPopup(auth,provider)
-.then(()=>{
-
-localStorage.setItem("logged","yes")
-location.replace("/")
-
-})
-.catch(e=>alert(e.message))
-
-}
-
-// ================= LOGOUT =================
-
-window.logout = function(){
-
-signOut(auth).then(()=>{
-localStorage.removeItem("logged")
+// LOGOUT
+window.logout=async()=>{
+await signOut(auth)
 location.replace("login.html")
+}
+
+// EDIT PROFILE
+window.saveProfile=async()=>{
+const name=newName.value.trim()
+const photo=newPhoto.value.trim()
+
+await updateProfile(auth.currentUser,{
+displayName:name||auth.currentUser.displayName,
+photoURL:photo||auth.currentUser.photoURL
 })
 
+alert("Updated")
+location.reload()
 }
