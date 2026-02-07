@@ -13,13 +13,25 @@
 
 <div class="drawer" id="drawer">
 
-<div class="avatar" onclick="photoInput.click()">
-<img id="userPhoto">
-</div>
+<div class="avatar" style="position:relative">
+<img id="userPhoto" onclick="pickPhoto()" style="cursor:pointer">
+
+<div onclick="pickPhoto()" style="
+position:absolute;
+bottom:0;
+right:0;
+background:#333;
+border-radius:50%;
+padding:6px;
+cursor:pointer">📷</div>
 
 <input type="file" id="photoInput" accept="image/*" hidden>
+</div>
 
-<h3 id="userName" onclick="editName()">User</h3>
+<h3 style="display:flex;align-items:center;gap:8px">
+<span id="userName">User</span>
+<span onclick="editName()" style="cursor:pointer">✏️</span>
+</h3>
 
 <div class="drawer-menu slanted">
 <div class="sbtn" onclick="goPanel()">PANEL</div>
@@ -37,6 +49,36 @@
 <div class="burger" onclick="openDrawer()">☰</div>
 </div>
 
+<div class="menu-grid">
+<button onclick="goPanel()">PANEL</button>
+<button onclick="openServers()">SERVER</button>
+<button onclick="wa()">WHATSAPP</button>
+<button onclick="tt()">TIKTOK</button>
+</div>
+
+<div class="card fade">
+<img src="https://files.catbox.moe/7qva10.png">
+</div>
+
+<div class="desc fade">
+HAI WEBSITE INI ADALAH WEBSITE JUAL PANEL YA GAYS DAN SEMUANYA OTOMATIS CUY BISA PILIH SESUAI HARGA
+</div>
+
+<div class="card fade">
+<h3 style="padding:15px">STATUS</h3>
+<p style="padding:0 15px 15px">✅ Auto Create Panel</p>
+<p style="padding:0 15px 15px">✅ Google Login</p>
+<p style="padding:0 15px 15px">✅ Realtime Server</p>
+</div>
+
+<div class="card fade">
+<h3 style="padding:15px">INFO</h3>
+<p style="padding:0 15px 15px">
+Jika panel hilang silakan hubungi admin.<br>
+Semua server tersimpan otomatis.
+</p>
+</div>
+
 <script>
 function openDrawer(){
 drawer.classList.add("open")
@@ -48,35 +90,29 @@ drawer.classList.remove("open")
 overlay.classList.remove("show")
 }
 
-function goPanel(){location.href="create.html"}
-function openServers(){location.href="servers.html"}
-function wa(){window.open("https://wa.me/628xxxx")}
-function tt(){window.open("https://tiktok.com")}
-function info(){alert("Danz Premium Panel Shop")}
-
-// EDIT NAME
-function editName(){
-const n=prompt("Nama baru?")
-if(n){
-localStorage.setItem("customName",n)
-userName.innerText=n
-}
+function goPanel(){
+location.href="create.html"
 }
 
-// UPLOAD FOTO
-photoInput.onchange=e=>{
-const f=e.target.files[0]
-if(!f) return
-const r=new FileReader()
-r.onload=()=>{
-localStorage.setItem("customPhoto",r.result)
-userPhoto.src=r.result
+function openServers(){
+location.href="servers.html"
 }
-r.readAsDataURL(f)
+
+function wa(){
+window.open("https://wa.me/628xxxx","_blank")
+}
+
+function tt(){
+window.open("https://tiktok.com","_blank")
+}
+
+function info(){
+alert("Danz Premium Panel Shop")
 }
 </script>
 
 <script type="module" src="auth.js"></script>
+<script type="module" src="guard.js"></script>
 
 </body>
 </html>
