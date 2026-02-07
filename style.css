@@ -317,3 +317,37 @@ color:#f87171;
 background:rgba(239,68,68,.2);
 color:white;
 }
+
+/* PROFILE EDIT */
+
+.cam-btn{
+position:absolute;
+bottom:-2px;
+right:-2px;
+background:#1b1e2b;
+border-radius:50%;
+padding:6px;
+font-size:14px;
+cursor:pointer;
+box-shadow:0 2px 8px rgba(0,0,0,.5);
+}
+
+.cam-btn:hover{
+background:#7c3aed;
+}
+
+.edit-name{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:6px;
+cursor:pointer;
+}
+
+.edit-name span:last-child{
+opacity:.7;
+}
+
+.edit-name:hover span:last-child{
+opacity:1;
+}
