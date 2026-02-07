@@ -14,15 +14,20 @@
 <div class="drawer" id="drawer">
 
 <div class="avatar">
-
-<div class="avatar-img" onclick="viewPhoto()">
-<img id="userPhoto">
-</div>
-
-<div class="cam-btn" onclick="pickPhoto()">📷</div>
+<img id="userPhoto" style="border-radius:50%;width:90px;height:90px;object-fit:cover">
 
 <input type="file" id="photoInput" accept="image/*" hidden>
 
+<button onclick="pickPhoto()" style="
+margin:10px auto 0;
+display:block;
+background:#1b1e2b;
+border:none;
+color:white;
+padding:6px 14px;
+border-radius:10px">
+Ganti Foto
+</button>
 </div>
 
 <h3 class="edit-name">
@@ -107,11 +112,6 @@ function info(){
 alert("Danz Premium Panel Shop")
 }
 
-function viewPhoto(){
-const img=document.getElementById("userPhoto").src
-if(!img)return
-window.open(img,"_blank")
-}
 </script>
 
 <script type="module" src="auth.js"></script>
