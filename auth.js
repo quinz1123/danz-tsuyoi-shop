@@ -20,56 +20,54 @@ appId:"1:504620812619:web:02d66470fa3bed9fbfc0ce"
 const app=initializeApp(firebaseConfig)
 const auth=getAuth(app)
 
-// ================= PROFILE =================
-
+const photo=document.getElementById("userPhoto")
 const photoInput=document.getElementById("photoInput")
-const photoEl=document.getElementById("userPhoto")
 const nameEl=document.getElementById("userName")
 
-let currentUID=null
+// ========= PHOTO =========
 
 window.pickPhoto=()=>photoInput.click()
 
 photoInput?.addEventListener("change",e=>{
 const f=e.target.files[0]
-if(!f||!currentUID)return
+if(!f)return
 
 const r=new FileReader()
 r.onload=()=>{
-localStorage.setItem(`photo_${currentUID}`,r.result)
-photoEl.src=r.result
+localStorage.setItem("customPhoto",r.result)
+photo.src=r.result
 }
 r.readAsDataURL(f)
 })
 
+window.viewPhoto=()=>{
+if(photo.src) window.open(photo.src,"_blank")
+}
+
+// ========= NAME =========
+
 window.editName=()=>{
-if(!currentUID)return
 const n=prompt("Nama baru?")
 if(!n)return
-
-localStorage.setItem(`name_${currentUID}`,n)
+localStorage.setItem("customName",n)
 nameEl.innerText=n
 }
 
-// ================= AUTO LOAD USER =================
+// ========= AUTO LOAD USER =========
 
 onAuthStateChanged(auth,user=>{
-
 if(!user)return
 
-currentUID=user.uid
-
-let savedName=localStorage.getItem(`name_${currentUID}`)
+let savedName=localStorage.getItem("customName")
 let name=savedName||user.displayName||user.email.split("@")[0]
 nameEl.innerText=name
 
-let savedPhoto=localStorage.getItem(`photo_${currentUID}`)
-photoEl.src=savedPhoto||user.photoURL||
-`https://ui-avatars.com/api/?name=${name}`
-
+let savedPhoto=localStorage.getItem("customPhoto")
+photo.src=savedPhoto||user.photoURL||
+`https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=0e0f13&color=fff`
 })
 
-// ================= LOGIN =================
+// ========= LOGIN =========
 
 window.login=async()=>{
 const email=document.getElementById("email").value.trim()
@@ -82,7 +80,7 @@ location.replace("/")
 }catch(e){alert(e.message)}
 }
 
-// ================= GOOGLE =================
+// ========= GOOGLE =========
 
 window.googleLogin=async()=>{
 try{
@@ -91,7 +89,7 @@ location.replace("/")
 }catch(e){alert(e.message)}
 }
 
-// ================= REGISTER =================
+// ========= REGISTER =========
 
 window.register=async()=>{
 const email=document.getElementById("email").value.trim()
@@ -107,7 +105,7 @@ location.replace("login.html")
 }catch(e){alert(e.message)}
 }
 
-// ================= LOGOUT =================
+// ========= LOGOUT =========
 
 window.logout=()=>{
 signOut(auth).then(()=>{
