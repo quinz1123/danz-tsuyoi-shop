@@ -4,80 +4,141 @@ getAuth,
 signInWithEmailAndPassword,
 createUserWithEmailAndPassword,
 onAuthStateChanged,
+signOut,
 sendEmailVerification,
 GoogleAuthProvider,
 signInWithPopup
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"
 
-const firebaseConfig={
-apiKey:"AIzaSyA2Eb7HpVNE7yPKsYxNqdCNs78qCkov62U",
-authDomain:"danz-tsuyoi.firebaseapp.com",
-projectId:"danz-tsuyoi",
-appId:"1:504620812619:web:02d66470fa3bed9fbfc0ce"
+const firebaseConfig = {
+apiKey: "AIzaSyA2Eb7HpVNE7yPKsYxNqdCNs78qCkov62U",
+authDomain: "danz-tsuyoi.firebaseapp.com",
+projectId: "danz-tsuyoi",
+appId: "1:504620812619:web:02d66470fa3bed9fbfc0ce"
 }
 
-initializeApp(firebaseConfig)
-const auth=getAuth()
+const app = initializeApp(firebaseConfig)
+const auth = getAuth(app)
 
-const boot=document.getElementById("boot")
-const appUI=document.getElementById("app")
-
-// ==== LOGIN PAGE ONLY ====
+// ================= AUTO LOGIN CHECK =================
 
 onAuthStateChanged(auth,user=>{
 
 if(user){
-location.replace("/")
+
+// GOOGLE LOGIN = AUTO VERIFIED
+if(user.providerData[0]?.providerId !== "google.com"){
+if(!user.emailVerified){
+alert("Verifikasi email dulu bro")
+signOut(auth)
 return
 }
+}
 
-// show login
-if(boot) boot.remove()
-if(appUI) appUI.style.display="block"
+localStorage.setItem("logged","yes")
+
+if(location.pathname.includes("login") || location.pathname.includes("register")){
+setTimeout(()=>{
+location.replace("/")
+},300)
+}
+
+}else{
+localStorage.removeItem("logged")
+}
 
 })
 
-// ================= LOGIN =================
+// ================= LOGIN EMAIL =================
 
-window.login=async()=>{
+window.login = function(){
 
-const email=document.getElementById("email").value.trim()
-const pass=document.getElementById("password").value.trim()
+const email = document.getElementById("email").value.trim()
+const password = document.getElementById("password").value.trim()
 
-if(!email||!pass) return alert("Lengkapi")
+if(!email || !password){
+alert("Isi email dan password")
+return
+}
 
-try{
-await signInWithEmailAndPassword(auth,email,pass)
+signInWithEmailAndPassword(auth,email,password)
+.then(res=>{
+
+if(res.user.providerData[0]?.providerId !== "google.com"){
+if(!res.user.emailVerified){
+alert("Email belum diverifikasi. Cek inbox!")
+signOut(auth)
+return
+}
+}
+
+localStorage.setItem("logged","yes")
+
+setTimeout(()=>{
 location.replace("/")
-}catch(e){alert(e.message)}
+},300)
+
+})
+.catch(e=>alert(e.message))
 
 }
 
-// ================= GOOGLE =================
+// ================= REGISTER + OTP =================
 
-window.googleLogin=async()=>{
+window.register = function(){
 
-try{
-await signInWithPopup(auth,new GoogleAuthProvider())
-location.replace("/")
-}catch(e){alert(e.message)}
+const email = document.getElementById("email").value.trim()
+const password = document.getElementById("password").value.trim()
 
+if(!email || !password){
+alert("Lengkapi data")
+return
 }
 
-// ================= REGISTER =================
+if(password.length < 6){
+alert("Password minimal 6 karakter")
+return
+}
 
-window.register=async()=>{
+createUserWithEmailAndPassword(auth,email,password)
+.then(async(res)=>{
 
-const email=document.getElementById("email").value.trim()
-const pass=document.getElementById("password").value.trim()
+await res.user.reload()
+await sendEmailVerification(res.user)
 
-if(pass.length<6) return alert("Min 6")
+alert("OTP sudah dikirim ke email. Silakan cek inbox / spam!")
 
-try{
-const r=await createUserWithEmailAndPassword(auth,email,pass)
-await sendEmailVerification(r.user)
-alert("Cek email")
 location.replace("login.html")
-}catch(e){alert(e.message)}
+
+})
+.catch(e=>alert(e.message))
+
+}
+
+// ================= GOOGLE LOGIN =================
+
+window.googleLogin = function(){
+
+const provider = new GoogleAuthProvider()
+
+signInWithPopup(auth,provider)
+.then(()=>{
+
+localStorage.setItem("logged","yes")
+location.replace("/")
+
+})
+.catch(e=>alert(e.message))
+
+}
+
+// ================= LOGOUT =================
+
+window.logout = function(){
+
+signOut(auth).then(()=>{
+localStorage.removeItem("logged")
+location.replace("login.html")
+})
 
 }
