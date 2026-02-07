@@ -10,90 +10,135 @@ GoogleAuthProvider,
 signInWithPopup
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"
 
-const firebaseConfig={
-apiKey:"AIzaSyA2Eb7HpVNE7yPKsYxNqdCNs78qCkov62U",
-authDomain:"danz-tsuyoi.firebaseapp.com",
-projectId:"danz-tsuyoi",
-appId:"1:504620812619:web:02d66470fa3bed9fbfc0ce"
+const firebaseConfig = {
+apiKey: "AIzaSyA2Eb7HpVNE7yPKsYxNqdCNs78qCkov62U",
+authDomain: "danz-tsuyoi.firebaseapp.com",
+projectId: "danz-tsuyoi",
+appId: "1:504620812619:web:02d66470fa3bed9fbfc0ce"
 }
 
-const app=initializeApp(firebaseConfig)
-const auth=getAuth(app)
+const app = initializeApp(firebaseConfig)
+const auth = getAuth(app)
 
-const photoInput=document.getElementById("photoInput")
-const photoEl=document.getElementById("userPhoto")
-const nameEl=document.getElementById("userName")
-
-let uid=null
-
-window.pickPhoto=()=>photoInput.click()
-
-photoInput?.addEventListener("change",e=>{
-const file=e.target.files[0]
-if(!file||!uid)return
-
-const reader=new FileReader()
-reader.onload=()=>{
-localStorage.setItem(uid+"_photo",reader.result)
-photoEl.src=reader.result
-}
-reader.readAsDataURL(file)
-})
-
-window.editName=()=>{
-if(!uid)return
-const n=prompt("Nama baru?")
-if(!n)return
-localStorage.setItem(uid+"_name",n)
-nameEl.innerText=n
-}
+// ================= AUTO LOGIN CHECK =================
 
 onAuthStateChanged(auth,user=>{
-if(!user)return
 
-uid=user.uid
+if(user){
 
-const savedName=localStorage.getItem(uid+"_name")
-const savedPhoto=localStorage.getItem(uid+"_photo")
+// GOOGLE LOGIN = AUTO VERIFIED
+if(user.providerData[0]?.providerId !== "google.com"){
+if(!user.emailVerified){
+alert("Verifikasi email dulu bro")
+signOut(auth)
+return
+}
+}
 
-nameEl.innerText=
-savedName||
-user.displayName||
-user.email.split("@")[0]
+localStorage.setItem("logged","yes")
 
-photoEl.src=
-savedPhoto||
-user.photoURL||
-`https://ui-avatars.com/api/?name=${nameEl.innerText}`
+if(location.pathname.includes("login") || location.pathname.includes("register")){
+setTimeout(()=>{
+location.replace("/")
+},300)
+}
+
+}else{
+localStorage.removeItem("logged")
+}
+
 })
 
-// LOGIN
-window.login=async()=>{
-const email=document.getElementById("email").value.trim()
-const pass=document.getElementById("password").value.trim()
-await signInWithEmailAndPassword(auth,email,pass)
-location.replace("/")
+// ================= LOGIN EMAIL =================
+
+window.login = function(){
+
+const email = document.getElementById("email").value.trim()
+const password = document.getElementById("password").value.trim()
+
+if(!email || !password){
+alert("Isi email dan password")
+return
 }
 
-// GOOGLE
-window.googleLogin=async()=>{
-await signInWithPopup(auth,new GoogleAuthProvider())
-location.replace("/")
+signInWithEmailAndPassword(auth,email,password)
+.then(res=>{
+
+if(res.user.providerData[0]?.providerId !== "google.com"){
+if(!res.user.emailVerified){
+alert("Email belum diverifikasi. Cek inbox!")
+signOut(auth)
+return
+}
 }
 
-// REGISTER
-window.register=async()=>{
-const email=document.getElementById("email").value.trim()
-const pass=document.getElementById("password").value.trim()
-const r=await createUserWithEmailAndPassword(auth,email,pass)
-await sendEmailVerification(r.user)
-alert("Cek email")
+localStorage.setItem("logged","yes")
+
+setTimeout(()=>{
+location.replace("/")
+},300)
+
+})
+.catch(e=>alert(e.message))
+
+}
+
+// ================= REGISTER + OTP =================
+
+window.register = function(){
+
+const email = document.getElementById("email").value.trim()
+const password = document.getElementById("password").value.trim()
+
+if(!email || !password){
+alert("Lengkapi data")
+return
+}
+
+if(password.length < 6){
+alert("Password minimal 6 karakter")
+return
+}
+
+createUserWithEmailAndPassword(auth,email,password)
+.then(async(res)=>{
+
+await res.user.reload()
+await sendEmailVerification(res.user)
+
+alert("OTP sudah dikirim ke email. Silakan cek inbox / spam!")
+
 location.replace("login.html")
+
+})
+.catch(e=>alert(e.message))
+
 }
 
-// LOGOUT
-window.logout=()=>{
+// ================= GOOGLE LOGIN =================
+
+window.googleLogin = function(){
+
+const provider = new GoogleAuthProvider()
+
+signInWithPopup(auth,provider)
+.then(()=>{
+
+localStorage.setItem("logged","yes")
+location.replace("/")
+
+})
+.catch(e=>alert(e.message))
+
+}
+
+// ================= LOGOUT =================
+
+window.logout = function(){
+
 signOut(auth).then(()=>{
+localStorage.removeItem("logged")
 location.replace("login.html")
 })
+
 }
