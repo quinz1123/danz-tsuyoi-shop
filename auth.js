@@ -19,12 +19,12 @@ projectId:"danz-tsuyoi"
 const app=initializeApp(firebaseConfig)
 const auth=getAuth(app)
 
-// UNHIDE HTML
+// AUTH READY GATE
+onAuthStateChanged(auth,user=>{
+
+// show HTML only NOW
 document.documentElement.style.display="block"
 document.body.style.display="block"
-
-// AUTH GATE
-onAuthStateChanged(auth,user=>{
 
 // remove loader
 const boot=document.getElementById("boot")
@@ -34,7 +34,6 @@ const path=location.pathname
 
 if(user){
 
-// email login must verified
 if(user.providerData[0]?.providerId!=="google.com" && !user.emailVerified){
 alert("Verifikasi email dulu")
 signOut(auth)
@@ -61,12 +60,12 @@ signInWithEmailAndPassword(auth,email.value,password.value)
 .catch(e=>alert(e.message))
 }
 
-// REGISTER (OTP)
+// REGISTER
 window.register=()=>{
 createUserWithEmailAndPassword(auth,email.value,password.value)
 .then(r=>{
 sendEmailVerification(r.user)
-alert("OTP dikirim ke email")
+alert("OTP dikirim")
 location.replace("login.html")
 }).catch(e=>alert(e.message))
 }
