@@ -16,8 +16,8 @@ projectId:"danz-tsuyoi",
 appId:"1:504620812619:web:02d66470fa3bed9fbfc0ce"
 }
 
-const app=initializeApp(firebaseConfig)
-const auth=getAuth(app)
+initializeApp(firebaseConfig)
+const auth=getAuth()
 
 const boot=document.getElementById("boot")
 const appUI=document.getElementById("app")
@@ -32,8 +32,8 @@ return
 }
 
 // show login
-boot.remove()
-appUI.style.display="block"
+if(boot) boot.remove()
+if(appUI) appUI.style.display="block"
 
 })
 
@@ -48,6 +48,7 @@ if(!email||!pass) return alert("Lengkapi")
 
 try{
 await signInWithEmailAndPassword(auth,email,pass)
+location.replace("/")
 }catch(e){alert(e.message)}
 
 }
@@ -58,6 +59,7 @@ window.googleLogin=async()=>{
 
 try{
 await signInWithPopup(auth,new GoogleAuthProvider())
+location.replace("/")
 }catch(e){alert(e.message)}
 
 }
