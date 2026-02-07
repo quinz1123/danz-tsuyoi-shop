@@ -4,7 +4,6 @@ getAuth,
 signInWithEmailAndPassword,
 createUserWithEmailAndPassword,
 onAuthStateChanged,
-signOut,
 sendEmailVerification,
 GoogleAuthProvider,
 signInWithPopup
@@ -23,57 +22,32 @@ const auth=getAuth(app)
 const boot=document.getElementById("boot")
 const appUI=document.getElementById("app")
 
-// ================= AUTH CHECK =================
+// ==== LOGIN PAGE ONLY ====
 
 onAuthStateChanged(auth,user=>{
 
 if(user){
-
-if(user.providerData[0]?.providerId!=="google.com"){
-if(!user.emailVerified){
-signOut(auth)
-unlock()
-return
-}
-}
-
 location.replace("/")
 return
 }
 
-// not logged
-unlock()
-
-})
-
-// ================= SHOW UI =================
-
-function unlock(){
+// show login
 boot.remove()
 appUI.style.display="block"
-}
+
+})
 
 // ================= LOGIN =================
 
 window.login=async()=>{
 
-const email=emailInput()
-const pass=passwordInput()
+const email=document.getElementById("email").value.trim()
+const pass=document.getElementById("password").value.trim()
 
 if(!email||!pass) return alert("Lengkapi")
 
 try{
-
-const res=await signInWithEmailAndPassword(auth,email,pass)
-
-if(!res.user.emailVerified){
-alert("Verifikasi email dulu")
-signOut(auth)
-return
-}
-
-location.replace("/")
-
+await signInWithEmailAndPassword(auth,email,pass)
 }catch(e){alert(e.message)}
 
 }
@@ -83,12 +57,7 @@ location.replace("/")
 window.googleLogin=async()=>{
 
 try{
-
-const p=new GoogleAuthProvider()
-await signInWithPopup(auth,p)
-
-location.replace("/")
-
+await signInWithPopup(auth,new GoogleAuthProvider())
 }catch(e){alert(e.message)}
 
 }
@@ -97,30 +66,16 @@ location.replace("/")
 
 window.register=async()=>{
 
-const email=emailInput()
-const pass=passwordInput()
+const email=document.getElementById("email").value.trim()
+const pass=document.getElementById("password").value.trim()
 
-if(!email||!pass) return alert("Lengkapi")
 if(pass.length<6) return alert("Min 6")
 
 try{
-
-const res=await createUserWithEmailAndPassword(auth,email,pass)
-await sendEmailVerification(res.user)
-
-alert("OTP dikirim")
+const r=await createUserWithEmailAndPassword(auth,email,pass)
+await sendEmailVerification(r.user)
+alert("Cek email")
 location.replace("login.html")
-
 }catch(e){alert(e.message)}
 
-}
-
-// ================= HELPERS =================
-
-function emailInput(){
-return document.getElementById("email")?.value.trim()
-}
-
-function passwordInput(){
-return document.getElementById("password")?.value.trim()
 }
