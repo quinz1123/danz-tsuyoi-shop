@@ -16,19 +16,12 @@
 <div class="avatar" style="position:relative">
 <img id="userPhoto" onclick="pickPhoto()" style="cursor:pointer">
 
-<div onclick="pickPhoto()" style="
-position:absolute;
-bottom:0;
-right:0;
-background:#333;
-border-radius:50%;
-padding:6px;
-cursor:pointer">📷</div>
+<div class="cam-btn" onclick="pickPhoto()">📷</div>
 
 <input type="file" id="photoInput" accept="image/*" hidden>
 </div>
 
-<h3 style="display:flex;align-items:center;gap:8px">
+<h3 class="edit-name">
 <span id="userName">User</span>
 <span onclick="editName()" style="cursor:pointer">✏️</span>
 </h3>
