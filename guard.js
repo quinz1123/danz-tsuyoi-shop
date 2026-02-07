@@ -10,8 +10,18 @@ projectId:"danz-tsuyoi"
 const app=initializeApp(firebaseConfig)
 const auth=getAuth(app)
 
+let checked=false
+
 onAuthStateChanged(auth,user=>{
+checked=true
 if(!user){
 location.replace("login.html")
 }
 })
+
+// fallback kalau Firebase telat
+setTimeout(()=>{
+if(!checked){
+auth.currentUser||location.replace("login.html")
+}
+},800)
