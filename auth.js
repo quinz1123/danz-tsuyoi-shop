@@ -23,7 +23,20 @@ const auth = getAuth(app)
 // ================= AUTO LOGIN CHECK =================
 
 onAuthStateChanged(auth,user=>{
+// ===== AUTO FOTO + NAMA USER =====
 
+let name = user.displayName
+if(!name && user.email){
+name = user.email.split("@")[0]
+}
+
+const nameEl = document.getElementById("userName")
+if(nameEl) nameEl.innerText = name || "User"
+
+const photoEl = document.getElementById("userPhoto")
+if(photoEl){
+photoEl.src = user.photoURL || "https://ui-avatars.com/api/?name="+(name||"User")
+}
 if(user){
 
 // GOOGLE LOGIN = AUTO VERIFIED
